@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Pieces;
+package TestClasses;
 
 import AlphaBetaTreeV2.AlphaBetaTree;
 import Board.BoardUtilities;
+import Pieces.IllegalMoveException;
 import finalyearproject.FinalYearProject;
 import finalyearproject.tester;
 
@@ -14,15 +15,15 @@ import finalyearproject.tester;
  *
  * @author Daniel
  */
-public class CheckerKing extends Checker{
+public class CheckerKingTEST extends CheckerTEST{
     
-    private Checker check;
+    private CheckerTEST check;
     private int tempScore;
     private int tempRow;
     private int tempCol;
 
     
-    public CheckerKing(int row, int column, boolean isRed, AlphaBetaTree myNode){
+    public CheckerKingTEST(int row, int column, boolean isRed, AlphaBetaTree myNode){
         
         /*EXPLAINATION
         
@@ -183,7 +184,7 @@ public class CheckerKing extends Checker{
         this.column = this.column-2;
 
         score += point;
-        tester.counter++;
+       CheckerLogicTest.counter++;
     
     }
      public void doMoveBackLeftLogic(char[][] board){
@@ -192,7 +193,7 @@ public class CheckerKing extends Checker{
         this.column = this.column -1;
         board[this.row][this.column] = mySymbol;
         System.out.println("I have branched, my score is: " + score);
-        tester.counter++;
+       CheckerLogicTest.counter++;
      
      }
      
@@ -265,7 +266,7 @@ public class CheckerKing extends Checker{
         this.column = this.column+2;
 
         score += point; 
-        tester.counter++;
+       CheckerLogicTest.counter++;
     
     }
      private void doMoveBackRightLogic(char[][] board){
@@ -274,7 +275,7 @@ public class CheckerKing extends Checker{
         this.row = this.row + (-upOrDown);
         this.column = this.column +1;
         board[this.row][this.column] = mySymbol;
-        tester.counter++;
+       CheckerLogicTest.counter++;
      
      }
   /* private void backUpValues(){
@@ -336,14 +337,14 @@ public class CheckerKing extends Checker{
             //board = BoardUtilities.buildBoard(board);
                  // char tempSymbol = mySymbol;
             takeLeftLogic(board);//do a
-            // System.out.println("King has branched,  my score is: " + score + " row: " + row + " column: " + column);
+             System.out.println("King has branched,  my score is: " + score + " row: " + row + " column: " + column);
             doKingMoves(board);
            
             
            score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
             //board = BoardUtilities.buildBoard(board);
             takeRightLogic(board);//do b
-             //System.out.println("King has branched,  my score is: " + score + " row: " + row + " column: " + column);
+             System.out.println("King has branched,  my score is: " + score + " row: " + row + " column: " + column);
             doKingMoves(board);
            
             
@@ -419,7 +420,7 @@ public class CheckerKing extends Checker{
             //System.out.println("Values in 'acd' is: " + score + " row: " + row + " column: " + column);
             // System.out.println("BackUp Values in 'acd' is: " + tempScore + " row: " + tempRow + " column: " + tempCol);
 
-            //System.out.println("King has branched on 'acd'");
+            System.out.println("King has branched on 'acd'");
             //board = BoardUtilities.buildBoard(board);
             takeLeftLogic(board);//do a
         System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);

@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Pieces;
+package TestClasses;
 
-import AlphaBetaTree.AlphaBetaNode;
+
 import AlphaBetaTreeV2.AlphaBetaTree;
 import Board.BoardUtilities;
+import Pieces.IllegalMoveException;
 import finalyearproject.FinalYearProject;
 import finalyearproject.tester;
 
@@ -15,7 +16,7 @@ import finalyearproject.tester;
  *
  * @author Daniel
  */
-public class Checker {
+public class CheckerTEST {
     
     protected final int startRow;
     protected final int startColumn;
@@ -41,7 +42,7 @@ public class Checker {
    protected final char redKingChecker = 'E';
    protected final char blackChecker = 'X';
    protected final char blackKingChecker = 'K';
-   private Checker check;
+   private CheckerTEST check;
    private int tempScore;
    private int tempRow;
    private int tempCol;
@@ -51,7 +52,7 @@ public class Checker {
    protected AlphaBetaTree myNode;
    
     
-    public Checker(int row, int column, boolean isRed, AlphaBetaTree myNode){
+    public CheckerTEST(int row, int column, boolean isRed, AlphaBetaTree myNode){
         
         startRow = row;
         startColumn = column;
@@ -60,7 +61,7 @@ public class Checker {
     
     }
     
-    public Checker(int row, int column, boolean isRed, boolean isKing, boolean isBackwardsKing, AlphaBetaTree myNode){
+    public CheckerTEST(int row, int column, boolean isRed, boolean isKing, boolean isBackwardsKing, AlphaBetaTree myNode){
 
         startRow = row;
         startColumn = column;
@@ -151,11 +152,12 @@ public class Checker {
         
         if(checkTakeLeft(board)){//testing for take in one single turn
 
-            System.out.println("I can move left");
+            System.out.println("I can take left");
             System.out.println("My row is: " + row + " my coloumn is: " + column);
             takeLeftLogic(board);
             System.out.println("My row is: " + row + " my coloumn is: " + column);
-            System.out.println("Is break");
+            System.out.println("Checker has branched, row: " + row + " column: " + column + " my score is: " + score);
+            
            
             doMoves(board);
             
@@ -224,8 +226,8 @@ public class Checker {
         this.row = this.row + upOrDown;
         this.column = this.column -1;
         board[this.row][this.column] = mySymbol;
-        System.out.println("I have branched, my score is: " + score);
-        tester.counter++;
+        //System.out.println("I have branched, my score is: " + score);
+        CheckerLogicTest.counter++;
     
     }
     /*Resets Checker for next move on it*/
@@ -249,17 +251,18 @@ public class Checker {
         if(checkTakeRight(board)){//testing for take in one single turn
 
           
-            takeRightLogic(board);
-            System.out.println("Is break");
+           takeRightLogic(board);
+           System.out.println("Checker has branched, row: " + row + " column: " + column + " my score is: " + score);
             
-                doMoves(board);
+            doMoves(board);
            
         }
         else{
             
             doMoveRightLogic(board);
             kingMe(board);
-            //System.out.println("I have branched, my score is: " + score);
+           System.out.println("Checker has branched, row: " + row + " column: " + column + " my score is: " + score);
+            
             
         
         }
@@ -304,7 +307,7 @@ public class Checker {
         this.row = this.row + upOrDown;
         this.column = this.column +1;
         board[this.row][this.column] = mySymbol;
-        tester.counter++;
+        CheckerLogicTest.counter++;
     
     }
     ///// helper methods ////
@@ -341,7 +344,7 @@ public class Checker {
         this.column = this.column-2;
 
         score += point;
-        tester.counter++;
+        CheckerLogicTest.counter++;
         kingMe(board);
     
     }
@@ -354,7 +357,7 @@ public class Checker {
         this.column = this.column+2;
 
         score += point; 
-        tester.counter++;
+        CheckerLogicTest.counter++;
         kingMe(board);
     
     }
@@ -372,23 +375,31 @@ public class Checker {
                   int tempRow = row;
                   int tempCol = column;
                   char tempSymbol = mySymbol;
+                  char[][]tempboard = BoardUtilities.buildBoard(board);
+                  
                   takeLeftLogic(board);
-                  System.out.println("branched,  my score is: " + score);
+              System.out.println("Checker has at double choice branched, row: " + row + " column: " + column + " my score is: " + score);
+            
                   score = tempscore;
                   row = tempRow;
                   column = tempCol;
                   mySymbol = tempSymbol;
+                  board = tempboard;
+                  
                   takeRightLogic(board);
-                  System.out.println("branched,  my score is: " + score);
+                  System.out.println("Checker has at double choice branched, row: " + row + " column: " + column + " my score is: " + score);
+            
                 // System.out.println("I have branched, my score is: " + score);
      
         }
         else if(checkTakeLeft(board)){
 
-             System.out.println("I have branched before taking in sec move left, my score is: " + score);
+           
+            
             //myNode.branch(score, board);
              //BoardUtilities.printBoard(board);
              takeLeftLogic(board);
+              System.out.println("Checker has branched, row: " + row + " column: " + column + " my score is: " + score);
             //System.out.println("EXPLAIN is BLACK to me how the score of" + score + " is returned");
      
              //BoardUtilities.printBoard(board);
@@ -396,11 +407,13 @@ public class Checker {
         }
         else if(checkTakeRight(board)){
 
-             System.out.println("I have branched before taking in sec right move, my score is: " + score);
+            
+            
              //BoardUtilities.printBoard(board);
             //myNode.branch(score, board);
             
              takeRightLogic(board);
+              System.out.println("Checker has branched, row: " + row + " column: " + column + " my score is: " + score);
             //BoardUtilities.printBoard(board);
             //System.out.println("EXPLAIN is BLACK to me how the score of " + score + " is returned");
 
