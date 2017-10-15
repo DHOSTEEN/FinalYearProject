@@ -208,7 +208,7 @@ public class tester {
         }catch(IllegalMoveException e){System.out.println(e.getMessage());}
         try{
         ((CheckerKing)redCheckers.get(0)).moveBackRight(currentBoard);
-          //   System.out.println(testPair.getScore());
+          
            // BoardUtilities.printBoard(testPair.getBoard());
             System.out.println("\nA NEW MOVE \n");
         }catch(IllegalMoveException e){System.out.println(e.getMessage());}
