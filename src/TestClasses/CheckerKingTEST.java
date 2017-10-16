@@ -298,6 +298,10 @@ public class CheckerKingTEST extends CheckerTEST{
         //checkright == b
         //checkKingLeft == c
         //checkKingright == d
+        // THEREFORE
+        // the C(4,3) + C(4,2) + 4
+        // = 4 + 6 + 4
+        //= 14 if statements
         if(checkTakeLeft(board) && checkTakeRight(board) && checkTakeBackLeft(board) && checkTakeBackRight(board)){//abcd - impossible
  
            int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);

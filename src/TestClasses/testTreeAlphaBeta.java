@@ -15,37 +15,41 @@ import java.util.Random;
  */
 public class testTreeAlphaBeta {
     
-     boolean allChildrenExplored;
-     boolean isMax;
-     int depth;
-     int maxDepth = 2;
-     int value = 616;
-     int alpha;
-     int beta;
-     String nodeName;
-   
+    private boolean allChildrenExplored;
+    private boolean isMax;
+    private boolean isUserInput;
+    private  int depth;
+    private  int maxDepth = 2;
+    private  int value = 616;
+    private  int alpha;
+    private  int beta;
+    private int branchFactor;
 
-     ArrayList<testTreeAlphaBeta> childNodes = new ArrayList<>();
-     testTreeAlphaBeta parent;
+    private  ArrayList<testTreeAlphaBeta> childNodes = new ArrayList<>();
+    private testTreeAlphaBeta parent;
    
-   public testTreeAlphaBeta(testTreeAlphaBeta parent, boolean isMax, int depth){
+   public testTreeAlphaBeta(testTreeAlphaBeta parent, boolean isMax, int depth, int alpha, int beta, boolean isUserInput, int maxDepth, int branchFactor){
        
-      allChildrenExplored = false;
-     // leafExplored; = false;
-      this.parent = parent;
-      this.isMax = isMax;
-      this.depth = depth;
- 
+    allChildrenExplored = false;
+    this.parent = parent;
+    this.alpha = alpha;
+    this.beta = beta;
+    this.isMax = isMax;
+    this.depth = depth;
+    this.maxDepth = maxDepth;
+    this.isUserInput = isUserInput;
+    this.branchFactor = branchFactor;
+
    }
-   public testTreeAlphaBeta(testTreeAlphaBeta parent, boolean isMax, int depth, int alpha, int beta){
+   public testTreeAlphaBeta(testTreeAlphaBeta parent, boolean isMax, int depth, int alpha, int beta, int branchFactor){
        
       allChildrenExplored = false;
-//      leafExplored = false;
       this.parent = parent;
       this.isMax = isMax;
       this.depth = depth;
       this.alpha = alpha;
       this.beta = beta;
+      this.branchFactor = branchFactor;
      
  
    }
@@ -60,12 +64,10 @@ public class testTreeAlphaBeta {
         if(!(depth == maxDepth)){// not a leaf
 
             int count = 0;
-            while(count<2){
+            while(count<branchFactor){
 
-                //System.out.println("making children");
                
                 makeChildren();
-                //propergate();
                 count++;//ends loop
             }
             this.allChildrenExplored = true;
@@ -73,39 +75,30 @@ public class testTreeAlphaBeta {
             
         }
         else{// is a leaf
-                //System.out.println("is assigning");
                 makeLeaf();
                 assignValues();
                 leafPropergate();
         }
-        //System.out.println("propergating");
-        
-   
+         
    }
    public void assignValues(){
    
-       
-       Random val = new Random();
-       int x = val.nextInt(50)+1;
-       //System.out.println(x);
-       int aValue = x;
-      // System.out.println("is assigning: " +childNodes.size());
-    
-        System.out.println("is value of: "+ aValue);
-        value = aValue;
+
+        if(!isUserInput){
+            Random val = new Random();
+            int x = val.nextInt(50)+1;;
+            int aValue = x;
+            System.out.println("Leaf has a value of: "+ aValue);
+            value = aValue;
+        }
+        else if(isUserInput){
+            
+            System.out.println("is value of: "+ TestMainExample.treeValues[TestMainExample.treePositionHolder]);
+            value = TestMainExample.treeValues[TestMainExample.treePositionHolder];
+            TestMainExample.treePositionHolder++;
         
-       
-       
+        }
 
-         /* System.out.println("is value of: "+ TestMain.treeValues[TestMain.treeHolder]);
-            value = TestMain.treeValues[TestMain.treeHolder];
-            TestMain.treeHolder++;*/
-       
-
-
-       
-       
-   
    }
    
    public void leafPropergate(){
@@ -113,62 +106,47 @@ public class testTreeAlphaBeta {
        if(isMax){//sending to a min node
            if(value<parent.value || parent.value == 616){
             parent.value = value;
-            //   System.out.println("parent(MIN) value is: " + value);
            }
        }
        else{
-       
             if(value>parent.value || parent.value == 616){
             parent.value = value;
-          //  System.out.println("parent(MAX) value is: " + value);
            }
        }
    }
 
    public void propergate(){
    
-       //System.out.println(childNodes.size());
-            /* if I am a leaf, all i need to do is fire my value UP based on the parents conditionals - wont go to children
-       if i am NOT i need to:
-       get a value
-       check if I have a parent
-       give my value to parent based on conditionals + alpha beta values
-       decide wether to spawn children based on MY value and alpha/beta values
-       complish*/
-       
-    
 
-            if(allChildrenExplored){System.out.println("I AM: " + this + " I are done with kids");}
+        if(allChildrenExplored){
+            System.out.println("I AM: " + this + "\n My child nodes have been explored");
+        }
         if(!isMax){// i am a MIN
 
             if(value == 616){
-                System.out.println("WTF");
+                System.out.println("User has inputed zero branches, defult value will be returned");
             }
             if(parent!=null && value!= 616 && allChildrenExplored){
                 if(value>parent.value || parent.value == 616){
                 parent.alpha = value;
                 parent.value = value;
-                
-              //  System.out.println("parent alpha is: " + value + " parent is: " + parent);
+
                 }
             }
 
         }
         else{// i am a MAX
             if(value == 616){
-                System.out.println("WTF");
+                 System.out.println("User has inputed zero branches, defult value will be returned");
             }
             if(parent!=null && value!= 616 && allChildrenExplored){
                 if(value< parent.value || parent.value == 616){
-                   // if(value>parent.alpha){
-                        parent.beta = value;
-                    //}
+   
+                    parent.beta = value;
                     parent.value = value;
-                    
 
-                       //  System.out.println("parent beta is: " + value + " parent is: " + parent);
                 }
-                  //System.out.println(value + " max node updated ");
+
             }
 
         }
@@ -180,22 +158,7 @@ public class testTreeAlphaBeta {
 
    }
    public void makeChildren(){
-       /*
-       
-       if I am a leaf, all i need to do is fire my value UP based on the parents conditionals - wont go to children
-       if i am NOT i need to:
-       get a value
-       check if I have a parent
-       give my value to parent based on conditionals + alpha beta values
-       decide wether to spawn children based on MY value and alpha/beta values
-       complish
-       
-       */
-   
-        // System.out.println("child is: " + (depth+1));
-       //  System.out.println("BEFORE new NODE : alpha = " + alpha + " beta = " + beta);
-      //  testTreeAlphaBeta child = new testTreeAlphaBeta(this, !isMax, depth +1, alpha, beta);
-      
+
          if(!isMax && value!=616){
             if(alpha!=-1000){
                 if(alpha>=value){
@@ -231,25 +194,17 @@ public class testTreeAlphaBeta {
                 }
             }
         }
-        /*if(isMax && beta<=value  || alpha>=beta){
-
-            System.out.println("has been pruned: alpha is: " + alpha + " beta is: " + beta);
-            return;
-        }*/
-       // System.out.println("BEFORE new BRANCH at level " + depth + ": alpha = " + alpha + " beta = " + beta);
-        
-        new testTreeAlphaBeta(this, !isMax, depth+1, alpha, beta).branch();
-       // System.out.println("AFTER new BRANCH at level "  + depth + ": alpha = " + alpha + "beta = " + beta);
-        //propergate();//send value up
        
-
-                //System.out.println("is branching");
-             
-
-        
+        if(!isUserInput){
+            new testTreeAlphaBeta(this, !isMax, depth+1, alpha, beta, branchFactor).branch();
+        }
+        else{
+             new testTreeAlphaBeta(this, !isMax, depth+1, alpha, beta, isUserInput, maxDepth, branchFactor).branch();
+        }
+     
    }
    public void makeLeaf(){
-        childNodes.add(new testTreeAlphaBeta(this, !isMax, depth +1, alpha, beta));
+        childNodes.add(new testTreeAlphaBeta(this, !isMax, depth +1, alpha, beta, branchFactor));
    }
    public void branch(){
    
@@ -257,31 +212,7 @@ public class testTreeAlphaBeta {
    
    }
    
-    /*
-    
-    (* Initial call *)
-        alphabeta(origin, depth, -∞, +∞, TRUE)
-    
-    function alphabeta(node, depth, α, β, maximizingPlayer)
-02      if depth = 0 or node is a terminal node
-03          return the heuristic value of node
-04      if maximizingPlayer
-05          v := -∞
-06          for each child of node
-07              v := max(v, alphabeta(child, depth – 1, α, β, FALSE))
-08              α := max(α, v)
-09              if β ≤ α
-10                  break (* β cut-off *)
-11          return v
-12      else
-13          v := +∞
-14          for each child of node
-15              v := min(v, alphabeta(child, depth – 1, α, β, TRUE))
-16              β := min(β, v)
-17              if β ≤ α
-18                  break (* α cut-off *)
-19          return v*/
-    
+  
 }
 
  

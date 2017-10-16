@@ -19,6 +19,7 @@ public class CheckerLogicTest {
    public  static int counter;
     static ArrayList<CheckerTEST> redCheckers = new ArrayList<>();
     static ArrayList<CheckerTEST> blackCheckers = new ArrayList<>();
+    
     static char[][] TEST ={
          {'W','B','W','B','W','B','W','B'},
          {'B','W','B','W','B','W','B','W'},
@@ -159,8 +160,8 @@ public class CheckerLogicTest {
         } ;
     public static void main (String args[]){
         
-        redTest();
-       //redKingTest();
+        //redTest();
+       redKingTest();
         
         
     
