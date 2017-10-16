@@ -85,6 +85,20 @@ public class CheckerLogicTest {
     {'B', 'W','B', 'W','B', 'W','B', 'W',},
     {'B', 'O','B', 'W','B', 'W','B', 'W',}
     };
+    /*BLACK TESTING*/
+     
+       static char[][] blackTest = {
+    
+    {'W', 'B','K', 'B','W', 'B','W', 'B',},
+    {'B', 'B','W', 'O','W', 'W','B', 'W',},
+    {'B', 'W','B', 'W','B', 'W','B', 'W',},
+    {'W', 'B','W', 'O','W', 'O','W', 'B',},
+    {'B', 'W','B', 'W','B', 'W','B', 'W',},
+    {'W', 'O','W', 'O','W', 'O','E', 'B',},
+    {'O', 'W','X', 'W','B', 'W','O', 'W',},
+    {'B', 'O','B', 'W','B', 'W','B', 'W',}
+    };
+     
      
      /*RED TESTING*/
      /*Test for 3 possible branches: take left, take right and stop, take right and take right*/
@@ -133,6 +147,17 @@ public class CheckerLogicTest {
                 {'B','W','B','X','B','W','B','W'}
              
         } ;
+          static char[][] redTest5 = {
+               {'W','B','W','B','W','B','W','B'},
+                {'B','O','B','W','B','W','B','W'},
+                {'W','B','X','B','W','B','W','B'},
+                {'W','B','W','W','W','W','W','B'},
+                {'W','B','X','B','X','B','X','B'},
+                {'B','W','B','W','B','W','B','X'},
+                {'X','B','X','B','X','B','X','B'},
+                {'B','W','B','W','B','W','B','W'}
+             
+        } ;
          /*KING TESTING*/
       /*TEst for many poss*/
          static char[][] redKingTest = {
@@ -158,17 +183,67 @@ public class CheckerLogicTest {
              
         } ;
     public static void main (String args[]){
-        
-        redTest();
+        //blackTest();
+       redTest();
        //redKingTest();
         
         
     
     }
     
+    public static void blackTest(){
+        
+        char[][] currentBoard = blackTest;
+        
+        for(int i =0; i<currentBoard.length; i++){// makes a Checker as per board
+            
+                for(int j = 0; j<currentBoard[i].length; j++){
+                
+                    if(currentBoard[i][j] ==  'O'){
+                    
+                        //System.out.println("i = " + i + " j = " + j);
+                       // redCheckers.add(new CheckerTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard)));
+                       
+                    
+                    }
+                    else if(currentBoard[i][j] == 'X'){
+                    
+                        blackCheckers.add(new CheckerTEST(i, j, false, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard)));
+                    
+                    }                
+                }            
+        }
+        
+             try{
+            blackCheckers.get(0).moveLeft(currentBoard);
+            //System.out.println(testPair.getScore());
+           // BoardUtilities.printBoard(testPair.getBoard());
+            System.out.println("\nA  MOVED LEFT \n");
+            
+        
+            }catch(IllegalMoveException e){System.out.println(e.getMessage());}
+        try{
+            blackCheckers.get(0).moveRight(currentBoard);
+            // System.out.println(testPair.getScore());
+           // BoardUtilities.printBoard(testPair.getBoard());
+              System.out.println("\nA MOVED RIGHT \n");
+        }catch(IllegalMoveException e){System.out.println(e.getMessage());}
+        
+      
+       
+        BoardUtilities.printBoard(currentBoard);
+        int x = -1;
+        int y = 2;
+       
+       // System.out.println("\n" + (y+(-x*2)));
+        System.out.println("\n" +counter);
+    
+    
+    }
+    
     public static void redTest(){
         
-        char[][] currentBoard = redTest4;
+        char[][] currentBoard = redTest5;
         
         for(int i =0; i<currentBoard.length; i++){// makes a Checker as per board
             

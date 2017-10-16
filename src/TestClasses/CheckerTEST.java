@@ -168,7 +168,7 @@ public class CheckerTEST {
         
             doMoveLeftLogic(board);
             kingMe(board);
-            
+            System.out.println("Checker has branched, row: " + row + " column: " + column + " my score is: " + score);
         }
         //if(this.row == && this.column == 0){
         //}
@@ -371,24 +371,24 @@ public class CheckerTEST {
                  //need to branch here as well?
                  //System.out.println("I have branched,  my score is: " + score);
                   //BoardUtilities.printBoard(board);
-                  int tempscore = score;
-                  int tempRow = row;
-                  int tempCol = column;
-                  char tempSymbol = mySymbol;
-                  char[][]tempboard = BoardUtilities.buildBoard(board);
+                int tempscore = score;
+                int tempRow = row;
+                int tempCol = column;
+                char tempSymbol = mySymbol;
+                char[][]tempboard = BoardUtilities.buildBoard(board);
                   
-                  takeLeftLogic(board);
-              System.out.println("Checker has at double choice branched, row: " + row + " column: " + column + " my score is: " + score);
-            
-                  score = tempscore;
-                  row = tempRow;
-                  column = tempCol;
-                  mySymbol = tempSymbol;
-                  board = tempboard;
+                takeLeftLogic(board);
+                System.out.println("Checker has at double choice branched, row: " + row + " column: " + column + " my score is: " + score);
+                doMoves(board);
+                score = tempscore;
+                row = tempRow;
+                column = tempCol;
+                mySymbol = tempSymbol;
+                board = tempboard;
                   
                   takeRightLogic(board);
                   System.out.println("Checker has at double choice branched, row: " + row + " column: " + column + " my score is: " + score);
-            
+                  doMoves(board);
                 // System.out.println("I have branched, my score is: " + score);
      
         }
