@@ -87,13 +87,24 @@ public class CheckerLogicTest {
     };
     /*BLACK TESTING*/
      
-       static char[][] blackTest = {
+    static char[][] blackTest = {
     
     {'W', 'B','K', 'B','W', 'B','W', 'B',},
     {'B', 'B','W', 'O','W', 'W','B', 'W',},
     {'B', 'W','B', 'W','B', 'W','B', 'W',},
     {'W', 'B','W', 'O','W', 'O','W', 'B',},
     {'B', 'W','B', 'W','B', 'W','B', 'W',},
+    {'W', 'O','W', 'O','W', 'O','E', 'B',},
+    {'O', 'W','X', 'W','B', 'W','O', 'W',},
+    {'B', 'O','B', 'W','B', 'W','B', 'W',}
+    };
+     static char[][] blackTest2 = {
+    
+    {'W', 'B','K', 'B','W', 'B','W', 'B',},
+    {'B', 'B','W', 'O','W', 'W','B', 'W',},
+    {'B', 'W','B', 'W','B', 'W','B', 'W',},
+    {'W', 'B','W', 'O','W', 'O','W', 'B',},
+    {'O', 'W','B', 'W','O', 'W','B', 'W',},
     {'W', 'O','W', 'O','W', 'O','E', 'B',},
     {'O', 'W','X', 'W','B', 'W','O', 'W',},
     {'B', 'O','B', 'W','B', 'W','B', 'W',}
@@ -159,6 +170,7 @@ public class CheckerLogicTest {
              
         } ;
          /*KING TESTING*/
+          /*RED KING*/
       /*TEst for many poss*/
          static char[][] redKingTest = {
                 {'W','B','W','B','W','B','W','B'},
@@ -182,10 +194,24 @@ public class CheckerLogicTest {
                 {'B','X','B','W','B','W','B','W'}
              
         } ;
+          /*Black KING*/
+          
+           static char[][] blackKingTest = {
+    
+            {'W', 'B','K', 'B','W', 'B','W', 'B',},
+            {'B', 'B','W', 'O','W', 'W','B', 'W',},
+            {'B', 'W','B', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'O','W', 'B',},
+            {'B', 'W','B', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'O','E', 'B',},
+            {'O', 'W','K', 'W','B', 'W','W', 'W',},
+            {'B', 'O','B', 'W','B', 'W','B', 'W',}
+            };
     public static void main (String args[]){
         //blackTest();
-       redTest();
+       //redTest();
        //redKingTest();
+       blackKingTest();
         
         
     
@@ -193,7 +219,7 @@ public class CheckerLogicTest {
     
     public static void blackTest(){
         
-        char[][] currentBoard = blackTest;
+        char[][] currentBoard = blackTest2;
         
         for(int i =0; i<currentBoard.length; i++){// makes a Checker as per board
             
@@ -338,6 +364,65 @@ public class CheckerLogicTest {
         }catch(IllegalMoveException e){System.out.println(e.getMessage());}
         try{
         ((CheckerKingTEST)redCheckers.get(0)).moveBackRight(currentBoard);
+          //   System.out.println(testPair.getScore());
+           // BoardUtilities.printBoard(testPair.getBoard());
+            System.out.println("\nA NEW MOVE \n");
+        }catch(IllegalMoveException e){System.out.println(e.getMessage());}
+       
+        BoardUtilities.printBoard(currentBoard);
+        int x = -1;
+        int y = 2;
+       
+        System.out.println("\n" + (y+(-x*2)));
+        System.out.println(counter);
+    }
+    public static void blackKingTest(){
+    
+        char[][] currentBoard = blackKingTest;
+        
+        for(int i =0; i<currentBoard.length; i++){// makes a Checker as per board
+            
+                for(int j = 0; j<currentBoard[i].length; j++){
+                
+                    if(currentBoard[i][j] ==  'E'){
+                    
+                        //System.out.println("i = " + i + " j = " + j);
+                        //redCheckers.add(new CheckerKingTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard)));
+                       
+                    
+                    }
+                    else if(currentBoard[i][j] == 'K'){
+                        System.out.println("i = " + i + " j = " + j);
+                        blackCheckers.add(new CheckerKingTEST(i, j, false,new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard)));
+                    
+                    }                
+                } 
+                
+        }
+    
+             try{
+            ((CheckerKingTEST)blackCheckers.get(0)).moveLeft(currentBoard);
+            //System.out.println(testPair.getScore());
+           // BoardUtilities.printBoard(testPair.getBoard());
+            System.out.println("\nA  MOVED LEFT \n");
+            
+        
+            }catch(IllegalMoveException e){System.out.println(e.getMessage());}
+        try{
+            ((CheckerKingTEST)blackCheckers.get(0)).moveRight(currentBoard);
+            // System.out.println(testPair.getScore());
+           // BoardUtilities.printBoard(testPair.getBoard());
+              System.out.println("\nA MOVED RIGHT \n");
+        }catch(IllegalMoveException e){System.out.println(e.getMessage());}
+        
+       try{
+        ((CheckerKingTEST)blackCheckers.get(0)).moveBackLeft(currentBoard);
+             //System.out.println(testPair.getScore());
+            //BoardUtilities.printBoard(testPair.getBoard());
+            System.out.println("\nA NEW MOVE \n");
+        }catch(IllegalMoveException e){System.out.println(e.getMessage());}
+        try{
+        ((CheckerKingTEST)blackCheckers.get(0)).moveBackRight(currentBoard);
           //   System.out.println(testPair.getScore());
            // BoardUtilities.printBoard(testPair.getBoard());
             System.out.println("\nA NEW MOVE \n");

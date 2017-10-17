@@ -47,7 +47,7 @@ public class CheckerKingTEST extends CheckerTEST{
     }
     @Override
     public void doMoveLeft(char[][] board) throws IllegalMoveException{
-        System.out.println("I R KING moving left");
+        //System.out.println("I R KING moving left");
         
         board = BoardUtilities.buildBoard(board);
         moveLeftTest(board);
@@ -327,7 +327,7 @@ public class CheckerKingTEST extends CheckerTEST{
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
                     System.out.println("King has done the impossible!!!");
-            doKingMoves(board);
+            //doKingMoves(board);
         }
           
         else if(checkTakeLeft(board) && checkTakeRight(board) && checkTakeBackLeft(board)){//abc
@@ -352,15 +352,10 @@ public class CheckerKingTEST extends CheckerTEST{
             //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
         System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
-            doKingMoves(board);
+            //doKingMoves(board);
            
             
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
-            //board = BoardUtilities.buildBoard(board);
-            takeBackRightLogic(board);// do d
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
-            doKingMoves(board);
-           
+      
          
         
         }
@@ -385,7 +380,7 @@ public class CheckerKingTEST extends CheckerTEST{
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
-            doKingMoves(board);
+            //doKingMoves(board);
             
         
         }
@@ -411,7 +406,7 @@ public class CheckerKingTEST extends CheckerTEST{
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
-            doKingMoves(board);
+            //doKingMoves(board);
            
         }
         else if(checkTakeLeft(board) && checkTakeBackLeft(board) && checkTakeBackRight(board)){//acd
@@ -444,7 +439,7 @@ public class CheckerKingTEST extends CheckerTEST{
             takeBackRightLogic(board);// do d
         System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
              //BoardUtilities.printBoard(board);
-            doKingMoves(board);
+            //doKingMoves(board);
             
         
         }
@@ -463,7 +458,7 @@ public class CheckerKingTEST extends CheckerTEST{
             //board = BoardUtilities.buildBoard(board);
             takeRightLogic(board);//do b
         System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
-            doKingMoves(board);
+            //doKingMoves(board);
           
             
            
@@ -483,7 +478,7 @@ public class CheckerKingTEST extends CheckerTEST{
             //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
         System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
-            doKingMoves(board);
+            //doKingMoves(board);
             
            
         }
@@ -501,7 +496,7 @@ public class CheckerKingTEST extends CheckerTEST{
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
         System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
-            doKingMoves(board);
+            //doKingMoves(board);
             
         }
         else if(checkTakeRight(board) && checkTakeBackLeft(board)){//bc
@@ -519,7 +514,7 @@ public class CheckerKingTEST extends CheckerTEST{
             //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
         System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
-            doKingMoves(board);
+            //doKingMoves(board);
             
         
         }
@@ -536,7 +531,7 @@ public class CheckerKingTEST extends CheckerTEST{
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
         System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
-            doKingMoves(board);
+            //doKingMoves(board);
            
         
         }
@@ -546,15 +541,24 @@ public class CheckerKingTEST extends CheckerTEST{
               System.out.println("King has branched on 'cd");
 
             //board = BoardUtilities.buildBoard(board);
+              //System.out.println("Before branch at cd: ");
+            //BoardUtilities.printBoard(board);
             takeBackLeftLogic(board);//do c
         System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+          
             doKingMoves(board);
-            
+           // System.out.println("After branch at cd:");
+            //BoardUtilities.printBoard(board);
            score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
             //board = BoardUtilities.buildBoard(board);
+             //System.out.println("Before branch at cd: ");
+            //BoardUtilities.printBoard(board);
             takeBackRightLogic(board);// do d
         System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
-            doKingMoves(board);
+       
+            //doKingMoves(board);
+            //System.out.println("After branch at cd: row: " + row + " column: " + column);
+            //BoardUtilities.printBoard(board);
             
         
         }
@@ -594,7 +598,8 @@ public class CheckerKingTEST extends CheckerTEST{
         
              //board = BoardUtilities.buildBoard(board);
            
-            System.out.println("Can still move");
+            //System.out.println("Can still move, row : " + row + " column: " + column);
+            //BoardUtilities.printBoard(board);
             doKingMoves(board);
         }
       
