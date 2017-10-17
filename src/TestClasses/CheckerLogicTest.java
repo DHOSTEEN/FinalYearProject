@@ -207,6 +207,73 @@ public class CheckerLogicTest {
             {'O', 'W','K', 'W','B', 'W','W', 'W',},
             {'B', 'O','B', 'W','B', 'W','B', 'W',}
             };
+           static char[][] blackKingTest2 = {//testing abd
+    
+            {'W', 'B','K', 'B','W', 'B','W', 'B',},
+            {'B', 'B','W', 'O','W', 'O','B', 'W',},
+            {'B', 'W','B', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'O','W', 'B',},
+            {'B', 'W','B', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'O','E', 'B',},
+            {'O', 'W','K', 'W','B', 'W','W', 'W',},
+            {'B', 'O','B', 'W','B', 'W','B', 'W',}
+            };
+           static char[][] blackKingTest3 = {// testing abc
+    
+            {'W', 'B','W', 'B','K', 'B','W', 'B',},
+            {'B', 'O','W', 'O','W', 'O','B', 'W',},
+            {'B', 'W','B', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'O','W', 'B',},
+            {'B', 'W','B', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'O','E', 'B',},
+            {'O', 'W','K', 'W','B', 'W','W', 'W',},
+            {'B', 'O','B', 'W','B', 'W','B', 'W',}
+            };
+           static char[][] blackKingTest4 = {//tetsing right wasnt buggy (wasnt)
+    
+            {'W', 'B','W', 'B','K', 'B','W', 'B',},
+            {'B', 'O','W', 'W','W', 'O','B', 'W',},
+            {'B', 'W','B', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'W','W', 'B',},
+            {'B', 'W','B', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'O','E', 'B',},
+            {'O', 'W','K', 'W','B', 'W','W', 'W',},
+            {'B', 'O','B', 'W','B', 'W','B', 'W',}
+            };
+           static char[][] blackKingTest5 = {//tetsing acd
+    
+            {'W', 'B','W', 'B','W', 'B','W', 'B',},
+            {'B', 'O','W', 'W','W', 'O','B', 'W',},
+            {'B', 'W','B', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'W','W', 'B',},
+            {'B', 'W','B', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'O','E', 'B',},
+            {'B', 'W','W', 'W','K', 'W','W', 'W',},
+            {'B', 'O','B', 'W','B', 'W','B', 'W',}
+           };
+             static char[][] blackKingTest6 = {//tetsing bcd
+    
+            {'W', 'B','W', 'B','W', 'B','W', 'B',},
+            {'B', 'O','W', 'W','W', 'O','B', 'W',},
+            {'B', 'W','B', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'W','W', 'B',},
+            {'B', 'W','B', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'O','E', 'B',},
+            {'K', 'W','W', 'W','W', 'W','W', 'W',},
+            {'B', 'O','B', 'W','B', 'W','B', 'W',}
+           };
+              static char[][] blackKingTest7 = {//tetsing bcd
+    
+            {'W', 'B','W', 'B','W', 'B','W', 'B',},
+            {'B', 'O','W', 'O','W', 'O','B', 'W',},
+            {'B', 'W','B', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'O','W', 'B',},
+            {'B', 'W','K', 'W','B', 'W','B', 'W',},
+            {'W', 'O','W', 'O','W', 'O','E', 'B',},
+            {'W', 'W','W', 'W','W', 'W','W', 'W',},
+            {'B', 'O','B', 'W','B', 'W','B', 'W',}
+           };
+           
     public static void main (String args[]){
         //blackTest();
        //redTest();
@@ -378,7 +445,7 @@ public class CheckerLogicTest {
     }
     public static void blackKingTest(){
     
-        char[][] currentBoard = blackKingTest;
+        char[][] currentBoard = blackKingTest7;
         
         for(int i =0; i<currentBoard.length; i++){// makes a Checker as per board
             

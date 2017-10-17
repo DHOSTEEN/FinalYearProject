@@ -333,25 +333,25 @@ public class CheckerKingTEST extends CheckerTEST{
         else if(checkTakeLeft(board) && checkTakeRight(board) && checkTakeBackLeft(board)){//abc
             
            int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
-            //System.out.println("King has branched on 'abc");
+            System.out.println("King has branched on 'abc");
             //board = BoardUtilities.buildBoard(board);
                  // char tempSymbol = mySymbol;
             takeLeftLogic(board);//do a
-             System.out.println("King has branched,  my score is: " + score + " row: " + row + " column: " + column);
+             System.out.println("King has branched first time on 'abc', row: " + row + " column: " + column + " my score is: " + score );
             doKingMoves(board);
            
             
            score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
             //board = BoardUtilities.buildBoard(board);
             takeRightLogic(board);//do b
-             System.out.println("King has branched,  my score is: " + score + " row: " + row + " column: " + column);
+             System.out.println("King has branched second time on 'abc', row: " + row + " column: " + column + " my score is: " + score );
             doKingMoves(board);
            
             
            score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
             //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+            System.out.println("King has branched third time one 'abc', row: " + row + " column: " + column + " my score is: " + score);
             //doKingMoves(board);
            
             
@@ -366,20 +366,20 @@ public class CheckerKingTEST extends CheckerTEST{
            //board = BoardUtilities.buildBoard(board);
                  // char tempSymbol = mySymbol;
             takeLeftLogic(board);//do a
-       System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+       System.out.println("King has branched first time on 'abd', row: " + row + " column: " + column + " my score is: " + score);
             doKingMoves(board);
             
            score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
             //board = BoardUtilities.buildBoard(board);
             takeRightLogic(board);//do b
-       System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+       System.out.println("King has branched second time on 'abd', row: " + row + " column: " + column + " my score is: " + score);
             doKingMoves(board);
           
             
            score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
-       System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+       System.out.println("King has branched third time on 'abd', row: " + row + " column: " + column + " my score is: " + score);
             //doKingMoves(board);
             
         
@@ -391,21 +391,21 @@ public class CheckerKingTEST extends CheckerTEST{
 
             //board = BoardUtilities.buildBoard(board);
             takeRightLogic(board);//do b
-  System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+  System.out.println("King has branched first time on 'bcd', row: " + row + " column: " + column + " my score is: " + score);
             doKingMoves(board);
            
             
            score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
             //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched second time on 'bcd, row: " + row + " column: " + column + " my score is: " + score);
             doKingMoves(board);
              // <---- HERE IS ISSUE WHY!?
             
            score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
-       System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+       System.out.println("King has branched third time on 'bcd', row: " + row + " column: " + column + " my score is: " + score);
             //doKingMoves(board);
            
         }
@@ -418,7 +418,7 @@ public class CheckerKingTEST extends CheckerTEST{
             System.out.println("King has branched on 'acd'");
             //board = BoardUtilities.buildBoard(board);
             takeLeftLogic(board);//do a
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched first time on 'acd', row: " + row + " column: " + column + " my score is: " + score);
              //BoardUtilities.printBoard(board);
             doKingMoves(board);
            
@@ -428,7 +428,7 @@ public class CheckerKingTEST extends CheckerTEST{
              // System.out.println("BackUp Values in 'acd' is: " + tempScore + " row: " + tempRow + " column: " + tempCol);
             //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
-             System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+             System.out.println("King has branched second time on 'acd', row: " + row + " column: " + column + " my score is: " + score);
              //BoardUtilities.printBoard(board);
             doKingMoves(board);
    
@@ -437,27 +437,27 @@ public class CheckerKingTEST extends CheckerTEST{
             // System.out.println("BackUp Values in 'acd' is: " + tempScore + " row: " + tempRow + " column: " + tempCol);
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched third time on 'acd', row: " + row + " column: " + column + " my score is: " + score);
              //BoardUtilities.printBoard(board);
             //doKingMoves(board);
             
         
         }
-        else if(checkTakeLeft(board) && checkTakeRight(board)){//ab -- handeled by checker?
+        else if(checkTakeLeft(board) && checkTakeRight(board)){//ab
             
            int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
-           // System.out.println("King has branched on 'ab");
+           System.out.println("King has branched on 'ab");
                  // char tempSymbol = mySymbol;
                  //board = BoardUtilities.buildBoard(board);
             takeLeftLogic(board);//do a
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched first time on 'ab', row: " + row + " column: " + column + " my score is: " + score);
             doKingMoves(board);
           
             
            score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
             //board = BoardUtilities.buildBoard(board);
             takeRightLogic(board);//do b
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched second time on 'ab', row: " + row + " column: " + column + " my score is: " + score);
             //doKingMoves(board);
           
             
@@ -470,14 +470,14 @@ public class CheckerKingTEST extends CheckerTEST{
               System.out.println("King has branched on 'ac");
             //board = BoardUtilities.buildBoard(board);
             takeLeftLogic(board);//do a
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched first time on 'ac', row: " + row + " column: " + column + " my score is: " + score);
             doKingMoves(board);
             
 
            score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
             //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched second time on 'ac', row: " + row + " column: " + column + " my score is: " + score);
             //doKingMoves(board);
             
            
@@ -489,31 +489,31 @@ public class CheckerKingTEST extends CheckerTEST{
             //board = BoardUtilities.buildBoard(board);
                  // char tempSymbol = mySymbol;
             takeLeftLogic(board);//do a
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched first time on 'ad', row: " + row + " column: " + column + " my score is: " + score);
             doKingMoves(board);
 
            score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched second time on 'ad', row: " + row + " column: " + column + " my score is: " + score);
             //doKingMoves(board);
             
         }
         else if(checkTakeRight(board) && checkTakeBackLeft(board)){//bc
             
            int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
-  System.out.println("King has branched on 'bc");
+  System.out.println("King has branched on 'bc'");
             
             //board = BoardUtilities.buildBoard(board);
             takeRightLogic(board);//do b
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched first time on 'bc', row: " + row + " column: " + column + " my score is: " + score);
             doKingMoves(board);
            
             
            score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
             //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched second time on 'bc', row: " + row + " column: " + column + " my score is: " + score);
             //doKingMoves(board);
             
         
@@ -522,15 +522,15 @@ public class CheckerKingTEST extends CheckerTEST{
             
            int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
             //board = BoardUtilities.buildBoard(board);
-              System.out.println("King has branched on 'bd");
+              System.out.println("King has branched on 'bd'");
 
             takeRightLogic(board);//do b
-       System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+       System.out.println("King has branched first time on 'bd', row: " + row + " column: " + column + " my score is: " + score);
           
            score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched second time on 'bd', row: " + row + " column: " + column + " my score is: " + score);
             //doKingMoves(board);
            
         
@@ -538,13 +538,13 @@ public class CheckerKingTEST extends CheckerTEST{
         else if(checkTakeBackLeft(board) && checkTakeBackRight(board)){//cd
             
            int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
-              System.out.println("King has branched on 'cd");
+              System.out.println("King has branched on 'cd'");
 
             //board = BoardUtilities.buildBoard(board);
               //System.out.println("Before branch at cd: ");
             //BoardUtilities.printBoard(board);
             takeBackLeftLogic(board);//do c
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched first time on 'cd', row: " + row + " column: " + column + " my score is: " + score);
           
             doKingMoves(board);
            // System.out.println("After branch at cd:");
@@ -554,7 +554,7 @@ public class CheckerKingTEST extends CheckerTEST{
              //System.out.println("Before branch at cd: ");
             //BoardUtilities.printBoard(board);
             takeBackRightLogic(board);// do d
-        System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+        System.out.println("King has branched second time on 'cd', row: " + row + " column: " + column + " my score is: " + score);
        
             //doKingMoves(board);
             //System.out.println("After branch at cd: row: " + row + " column: " + column);
@@ -567,7 +567,7 @@ public class CheckerKingTEST extends CheckerTEST{
            // //board = BoardUtilities.buildBoard(board);
             takeLeftLogic(board);//do a
            // doKingMoves(board);
-       System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+       System.out.println("King has branched on 'a', row: " + row + " column: " + column + " my score is: " + score);
             
         }
         else if(checkTakeRight(board)){//b
@@ -575,7 +575,7 @@ public class CheckerKingTEST extends CheckerTEST{
            // //board = BoardUtilities.buildBoard(board);
             takeRightLogic(board);//do b
            // doKingMoves(board);
-       System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+            System.out.println("King has branched on 'b', row: " + row + " column: " + column + " my score is: " + score);
             
         }
         else if(checkTakeBackLeft(board)){//c
@@ -583,7 +583,7 @@ public class CheckerKingTEST extends CheckerTEST{
            // //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
            // doKingMoves(board);
-       System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+       System.out.println("King has branched on 'c', row: " + row + " column: " + column + " my score is: " + score);
         
         }
         else if(checkTakeBackRight(board)){//d
@@ -591,14 +591,14 @@ public class CheckerKingTEST extends CheckerTEST{
            // //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
            // doKingMoves(board);
-       System.out.println("King has branched, row: " + row + " column: " + column + " my score is: " + score);
+       System.out.println("King has branched on 'd', row: " + row + " column: " + column + " my score is: " + score);
         }
         
         if(checkTakeLeft(board) || checkTakeRight(board) || checkTakeBackLeft(board) || checkTakeBackRight(board)){// if can keep going
         
              //board = BoardUtilities.buildBoard(board);
            
-            //System.out.println("Can still move, row : " + row + " column: " + column);
+            System.out.println("Can still move, row : " + row + " column: " + column);
             //BoardUtilities.printBoard(board);
             doKingMoves(board);
         }

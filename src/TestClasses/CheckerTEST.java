@@ -388,7 +388,7 @@ public class CheckerTEST {
                   
                   takeRightLogic(board);
                   System.out.println("Checker has at double choice branched, row: " + row + " column: " + column + " my score is: " + score);
-                  doMoves(board);
+                  //doMoves(board);
                 // System.out.println("I have branched, my score is: " + score);
      
         }
