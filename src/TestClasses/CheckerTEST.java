@@ -37,15 +37,15 @@ public class CheckerTEST {
     protected char opponentKingSymbol;
     protected int upOrDown;
     protected int point;
+    protected int extraPoint;
     
    protected final char redChecker = 'O';
    protected final char redKingChecker = 'E';
    protected final char blackChecker = 'X';
    protected final char blackKingChecker = 'K';
-   private CheckerTEST check;
-   private int tempScore;
-   private int tempRow;
-   private int tempCol;
+  
+   private final int takeValue = 10;
+   private final int extraValue = 1;
    
    protected boolean isFirstMove;
    
@@ -82,7 +82,8 @@ public class CheckerTEST {
             opponentSymbol = blackChecker;
             opponentKingSymbol = blackKingChecker;
             upOrDown = -1;
-            point = 2;
+            point = takeValue;
+            extraPoint = extraValue;
             myColour = "RED KING";
         
         }
@@ -93,7 +94,8 @@ public class CheckerTEST {
             opponentSymbol = redChecker;
             opponentKingSymbol = redKingChecker;
             upOrDown = 1;
-            point = -2;
+            point = -takeValue;
+            extraPoint = -extraValue;
             myColour = "BLACK KING";
         
         }
@@ -110,7 +112,8 @@ public class CheckerTEST {
             opponentSymbol = blackChecker;
             opponentKingSymbol = blackKingChecker;
             upOrDown = 1;
-            point = 2;
+            point = takeValue;
+            extraPoint = extraValue;
             myColour = "RED";
         }
         else{
@@ -126,7 +129,8 @@ public class CheckerTEST {
             opponentSymbol = redChecker;
             opponentKingSymbol = redKingChecker;
             upOrDown = -1;
-            point = -2;
+            point = -takeValue;
+            extraPoint = -extraValue;
             myColour = "BLACK";
         
         }
@@ -428,6 +432,21 @@ public class CheckerTEST {
 
 
     }
+    
+    //a Branch score //
+    public void branch(){
+    
+        if(column == 0 || column == 7){
+        
+            score+= extraPoint*4;
+        }
+        else if(row == 0 || column == 7){
+        
+            score += extraPoint*4;
+        }
+    
+    }
+    
     /*Booleans*/
     public boolean isBlockedByOtherLeft(char[][] board){
     
@@ -463,7 +482,7 @@ public class CheckerTEST {
     
     }
     
-    //King logic
+    //
    
    
     

@@ -194,6 +194,18 @@ public class CheckerLogicTest {
                 {'B','X','B','W','B','W','B','W'}
              
         } ;
+           static char[][] redKingTest3 = {
+                
+                {'B','W','B','W','B','W','B','W'},
+                {'W','B','X','B','X','B','X','B'},
+                {'B','W','B','E','B','W','B','W'},
+                {'W','B','X','B','X','B','X','B'},
+                {'B','W','B','W','B','W','B','X'},
+                {'X','B','X','B','X','B','X','B'},
+                {'B','X','B','W','B','W','B','W'},
+                {'W','B','W','B','W','B','W','B'}
+             
+        } ;
           /*Black KING*/
           
            static char[][] blackKingTest = {
@@ -295,13 +307,13 @@ public class CheckerLogicTest {
                     if(currentBoard[i][j] ==  'O'){
                     
                         //System.out.println("i = " + i + " j = " + j);
-                       // redCheckers.add(new CheckerTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard)));
+                       // redCheckers.add(new CheckerTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3)));
                        
                     
                     }
                     else if(currentBoard[i][j] == 'X'){
                     
-                        blackCheckers.add(new CheckerTEST(i, j, false, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard)));
+                        blackCheckers.add(new CheckerTEST(i, j, false, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3)));
                     
                     }                
                 }            
@@ -345,7 +357,7 @@ public class CheckerLogicTest {
                     if(currentBoard[i][j] ==  'O'){
                     
                         System.out.println("i = " + i + " j = " + j);
-                        redCheckers.add(new CheckerTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard)));
+                        redCheckers.add(new CheckerTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3)));
                        
                     
                     }
@@ -386,7 +398,7 @@ public class CheckerLogicTest {
     
     public static void redKingTest(){
     
-        char[][] currentBoard = blackKingTest7;
+        char[][] currentBoard = redKingTest;
         
         for(int i =0; i<currentBoard.length; i++){// makes a Checker as per board
             
@@ -395,13 +407,13 @@ public class CheckerLogicTest {
                     if(currentBoard[i][j] ==  'E'){
                     
                         System.out.println("i = " + i + " j = " + j);
-                        redCheckers.add(new CheckerKingTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard)));
+                        redCheckers.add(new CheckerKingTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3)));
                        
                     
                     }
                     else if(currentBoard[i][j] ==  'O'){
                     
-                        redCheckers.add(new CheckerTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard)));
+                        redCheckers.add(new CheckerTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3)));
                     
                     }                
                 } 
@@ -456,13 +468,13 @@ public class CheckerLogicTest {
                     if(currentBoard[i][j] ==  'E'){
                     
                         //System.out.println("i = " + i + " j = " + j);
-                        //redCheckers.add(new CheckerKingTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard)));
+                        //redCheckers.add(new CheckerKingTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3)));
                        
                     
                     }
                     else if(currentBoard[i][j] == 'K'){
                         System.out.println("i = " + i + " j = " + j);
-                        blackCheckers.add(new CheckerKingTEST(i, j, false,new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard)));
+                        blackCheckers.add(new CheckerKingTEST(i, j, false,new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3)));
                     
                     }                
                 } 

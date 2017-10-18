@@ -181,7 +181,7 @@ public class CheckerKing extends Checker{
         this.column = this.column-2;
 
         score += point;
-        myNode.branch(score, board);
+        branch(board);
        //CheckerLogicTest.counter++;
     
     }
@@ -190,7 +190,7 @@ public class CheckerKing extends Checker{
         this.row = this.row + (-upOrDown);
         this.column = this.column -1;
         board[this.row][this.column] = mySymbol;
-        myNode.branch(score, board);
+        branch(board);
         ////System.out.println("I have branched, my score is: " + score);
        //CheckerLogicTest.counter++;
      
@@ -266,7 +266,7 @@ public class CheckerKing extends Checker{
         this.column = this.column+2;
 
         score += point; 
-        myNode.branch(score, board);
+        branch(board);
        //CheckerLogicTest.counter++;
     
     }
@@ -276,7 +276,7 @@ public class CheckerKing extends Checker{
         this.row = this.row + (-upOrDown);
         this.column = this.column +1;
         board[this.row][this.column] = mySymbol;
-        myNode.branch(score, board);
+        branch(board);
        //CheckerLogicTest.counter++;
      
      }

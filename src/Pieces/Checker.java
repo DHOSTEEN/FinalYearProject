@@ -37,11 +37,16 @@ public class Checker {
     protected char opponentKingSymbol;
     protected int upOrDown;
     protected int point;
+    protected int extraPoint;
     
    protected final char redChecker = 'O';
    protected final char redKingChecker = 'E';
    protected final char blackChecker = 'X';
    protected final char blackKingChecker = 'K';
+   
+   private final int takeValue = 10;
+   private final int extraValue = 1;
+   
    private Checker check;
    private int tempScore;
    private int tempRow;
@@ -82,7 +87,8 @@ public class Checker {
             opponentSymbol = blackChecker;
             opponentKingSymbol = blackKingChecker;
             upOrDown = -1;
-            point = 2;
+            point = takeValue;
+            extraPoint = extraValue;
             myColour = "RED KING";
         
         }
@@ -93,7 +99,8 @@ public class Checker {
             opponentSymbol = redChecker;
             opponentKingSymbol = redKingChecker;
             upOrDown = 1;
-            point = -2;
+            point = -takeValue;
+            extraPoint = -extraValue;
             myColour = "BLACK KING";
         
         }
@@ -110,7 +117,8 @@ public class Checker {
             opponentSymbol = blackChecker;
             opponentKingSymbol = blackKingChecker;
             upOrDown = 1;
-            point = 2;
+            point = takeValue;
+            extraPoint = extraValue;
             myColour = "RED";
         }
         else{
@@ -126,7 +134,8 @@ public class Checker {
             opponentSymbol = redChecker;
             opponentKingSymbol = redKingChecker;
             upOrDown = -1;
-            point = -2;
+            point = -takeValue;
+            extraPoint = -extraValue;
             myColour = "BLACK";
         
         }
@@ -199,7 +208,7 @@ public class Checker {
         this.row = this.row + upOrDown;
         this.column = this.column -1;
         board[this.row][this.column] = mySymbol;
-        myNode.branch(score, board);
+       branch(board);
 
     }
     /*Resets Checker for next move on it*/
@@ -262,7 +271,7 @@ public class Checker {
         this.row = this.row + upOrDown;
         this.column = this.column +1;
         board[this.row][this.column] = mySymbol;
-        myNode.branch(score, board);
+       branch(board);
 
     
     }
@@ -302,7 +311,7 @@ public class Checker {
         score += point;
         
         kingMe(board);
-        myNode.branch(score, board);
+       branch(board);
     
     }
     public void takeRightLogic(char[][] board){
@@ -316,7 +325,7 @@ public class Checker {
         score += point; 
 
         kingMe(board);
-        myNode.branch(score, board);
+       branch(board);
     
     }
     public void doMoves(char[][] board){
@@ -363,6 +372,21 @@ public class Checker {
         }
 
 
+    }
+    
+    public void branch(char[][] board){
+        int extra =0;
+         if(column == 0 || column == 7){
+        
+            extra = extraPoint*4;
+        }
+        else if(row == 0 || row == 7){
+        
+            extra = extraPoint*4;
+        }
+        
+        myNode.branch((score + extra), board);
+    
     }
     /*Booleans*/
     public boolean isBlockedByOtherLeft(char[][] board){
