@@ -30,13 +30,37 @@ public class aTester {
                 {'B','X','B','X','B','X','B','W'}
              
         } ;
-        printBoard(atestyBoard);
+        
+         char[][] atestyBoard2 = {
+                {'W','B','O','B','O','B','O','B'},
+                {'B','O','B','O','B','O','B','O'},
+                {'O','B','W','B','O','B','W','B'},
+                {'W','B','W','O','W','O','W','B'},
+                {'W','B','X','B','X','B','X','B'},
+                {'B','W','B','W','B','W','B','X'},
+                {'X','B','X','B','X','B','X','B'},
+                {'B','X','B','X','B','X','B','W'}
+             
+        } ;
         char[][] board = FinalYearProject.buildBoard();
         FinalYearProject.placePeices(board);
+        
+         System.out.println("RED PIECE BOARD");
+        printBoard(atestyBoard);
+      
         AlphaBetaTree isTest = new AlphaBetaTree(null, true, 0, -1000, 1000, 0, atestyBoard);
-        System.out.println("IS VALUE OF: " +isTest.nodeValue);
+        System.out.println("\n RED BEST MOVE :");
         printBoard(isTest.getBestMove());
-           System.out.println("IS VALUE OF: " +isTest.nodeValue);
+           System.out.println("\n IS VALUE OF: " +isTest.nodeValue);
+           
+        printBoard(atestyBoard2);
+       
+         System.out.println("\n BLACK PIECE BOARD");
+        FinalYearProject.placePeices(board);
+        AlphaBetaTree isTestR = new AlphaBetaTree(null, false, 0, -1000, 1000, 0, atestyBoard2);
+       System.out.println("\n BLACK BEST MOVE :");
+        printBoard(isTestR.getBestMove());
+        System.out.println("\n Balck??? IS VALUE OF: " +isTestR.nodeValue);
     }
     
 }

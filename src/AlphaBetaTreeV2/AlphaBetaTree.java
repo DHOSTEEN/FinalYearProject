@@ -53,12 +53,12 @@ public class AlphaBetaTree {
     }
     private boolean isMaxNode;
     private int depthLevel;
-    private final int maxDepth =5;
+    private final int maxDepth;
     private int alpha;
     private int beta;
     private boolean allChildrenExplored;
     
-    public AlphaBetaTree(AlphaBetaTree parent, boolean myType, int newDepthLevel,int passedAlpha, int passedBeta, int culmativeScore, char[][] passedBoard){
+    public AlphaBetaTree(AlphaBetaTree parent, boolean myType, int newDepthLevel,int passedAlpha, int passedBeta, int culmativeScore, char[][] passedBoard, int maxDepth){
     
         parentNode = parent;
         isMaxNode = myType;
@@ -67,7 +67,7 @@ public class AlphaBetaTree {
         beta = passedBeta;
         currentScore = culmativeScore;
         currentBoard = passedBoard;
-        
+        this.maxDepth = maxDepth;
     
     }
     
@@ -80,7 +80,7 @@ public class AlphaBetaTree {
     
     private void findBestMove(){
         
-        System.out.println("My current Val is: " + currentScore);
+        //System.out.println("My current Val is: " + currentScore);
         if(maxDepth!=depthLevel){
             
             readBoard();
@@ -108,13 +108,13 @@ public class AlphaBetaTree {
             if(alpha!=-1000){
                 if(alpha>=nodeValue){
 
-                System.out.println("a min node has pruned: alpha is: " + alpha + " beta is: " + beta + " value is: " + nodeValue);
+                //System.out.println("a min node has pruned: alpha is: " + alpha + " beta is: " + beta + " value is: " + nodeValue);
                        return;
                 }
                 if(beta!=1000){
                     if(alpha>=beta){
                     
-                        System.out.println("a min node has pruned: alpha is: " + alpha + " beta is: " + beta + " value is: " + nodeValue);
+                        //System.out.println("a min node has pruned: alpha is: " + alpha + " beta is: " + beta + " value is: " + nodeValue);
                         return;
                     }
                 
@@ -126,13 +126,13 @@ public class AlphaBetaTree {
            if(beta!=1000){
                 if(beta<=nodeValue){
 
-                System.out.println("a max node has pruned: alpha is: " + alpha + " beta is: " + beta);
+                //System.out.println("a max node has pruned: alpha is: " + alpha + " beta is: " + beta);
                        return;
                 }
                if(alpha!=-1000){
                     if(alpha>=beta){
                     
-                        System.out.println("a max node has pruned: alpha is: " + alpha + " beta is: " + beta);
+                        //System.out.println("a max node has pruned: alpha is: " + alpha + " beta is: " + beta);
                         return;
                     }
                 
@@ -171,7 +171,7 @@ public class AlphaBetaTree {
     }
     public void branch(int score, char[][] board){
         
-        new AlphaBetaTree(this, !(isMaxNode), depthLevel + 1, alpha, beta, currentScore + score, board).getBestMove();
+        new AlphaBetaTree(this, !(isMaxNode), depthLevel + 1, alpha, beta, currentScore + score, board, maxDepth).getBestMove();
     }
     private void makeALeaf(){
     
@@ -179,13 +179,13 @@ public class AlphaBetaTree {
     
     }
     private void leafPropergate(){
-        System.out.println("I am a Leaf at depth of " + depthLevel +" value is: " + currentScore + "parent value is: " + parentNode.nodeValue);
+        //System.out.println("I am a Leaf at depth of " + depthLevel +" value is: " + currentScore + "parent value is: " + parentNode.nodeValue);
         if(isMaxNode){//sending to a min node
             if(currentScore!=616){
                 if(currentScore<parentNode.nodeValue || parentNode.nodeValue == 616){
                     parentNode.nodeValue = currentScore;
                     parentNode.bestBoard = currentBoard;
-                       System.out.println("parent(MIN) value is: " + nodeValue);
+                       //System.out.println("parent(MIN) value is: " + nodeValue);
                 }
             }
        }
@@ -195,18 +195,18 @@ public class AlphaBetaTree {
                     parentNode.nodeValue = currentScore;
                     parentNode.bestBoard = currentBoard;
                 }
-            System.out.println("parent(MAX) value is: " + nodeValue);
+            //System.out.println("parent(MAX) value is: " + nodeValue);
            }
        }
     
     }
     private void propergate(){
         
-        System.out.println("Propergating values at level: " + depthLevel);
+        //System.out.println("Propergating values at level: " + depthLevel);
          if(!isMaxNode){// i am a MIN
 
             if(nodeValue == 616){
-                System.out.println("WTF");
+                //System.out.println("WTF");
             }
             if(parentNode!=null && nodeValue!= 616 && allChildrenExplored){
                 if(nodeValue>parentNode.nodeValue || parentNode.nodeValue == 616){
@@ -214,14 +214,14 @@ public class AlphaBetaTree {
                 parentNode.nodeValue = nodeValue;
                 parentNode.bestBoard = currentBoard;
                 
-                System.out.println("parent(MAX) alpha is: " + nodeValue + " parent(MAX) is: " + parentNode);
+                //System.out.println("parent(MAX) alpha is: " + nodeValue + " parent(MAX) is: " + parentNode);
                 }
             }
 
         }
         else{// i am a MAX
             if(nodeValue == 616){
-                System.out.println("WTF");
+                //System.out.println("WTF");
             }
             if(parentNode!=null && nodeValue!= 616 && allChildrenExplored){
                 if(nodeValue< parentNode.nodeValue || parentNode.nodeValue == 616){
@@ -232,9 +232,9 @@ public class AlphaBetaTree {
                     parentNode.bestBoard = currentBoard;
                     
 
-                         System.out.println("parent(MIN) beta is: " + nodeValue + " parent(MIN) is: " + parentNode);
+                         //System.out.println("parent(MIN) beta is: " + nodeValue + " parent(MIN) is: " + parentNode);
                 }
-                  //System.out.println(value + " max node updated ");
+                  ////System.out.println(value + " max node updated ");
             }
 
         }

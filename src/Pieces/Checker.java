@@ -5,9 +5,10 @@
  */
 package Pieces;
 
-import AlphaBetaTree.AlphaBetaNode;
+
 import AlphaBetaTreeV2.AlphaBetaTree;
 import Board.BoardUtilities;
+import Pieces.IllegalMoveException;
 import finalyearproject.FinalYearProject;
 import finalyearproject.tester;
 
@@ -150,15 +151,8 @@ public class Checker {
         moveLeftTest(board);
         
         if(checkTakeLeft(board)){//testing for take in one single turn
-
-            System.out.println("I can move left");
-            System.out.println("My row is: " + row + " my coloumn is: " + column);
-            takeLeftLogic(board);
-            System.out.println("My row is: " + row + " my coloumn is: " + column);
-            System.out.println("Is break");
-           
-            doMoves(board);
             
+            doMoves(board);
 
         }
         
@@ -166,33 +160,14 @@ public class Checker {
         
             doMoveLeftLogic(board);
             kingMe(board);
-            
+           
+           
         }
-        //if(this.row == && this.column == 0){
-        //}
-        //kingMe(board);
-        
-        //return new BoardScorePair(score, board);
        
-       
-        ////BoardUtilities.printBoard(board);
-       //myNode.branch(score, board);
-       // new AlphaBetaTree(myNode, !(myNode.isIsMaxNode()), myNode.getDepthLevel() + 1, myNode.getAlpha(), myNode.getBeta(), myNode.getCurrentScore() + score, board).getBestMove();
-        //(AlphaBetaTree parent, boolean myType, int newDepthLevel,int passedAlpha, int passedBeta, int culmativeScore, char[][] passedBoard
-       // AlphaBetaNode newNode = new AlphaBetaNode(myNode, board, score, myNode.depthLevel+1, !(myNode.isMaxNode));
-         //return newNode.getBestMove(); // create a Node with a parent attached. will carry Culmative score until seesation point. then fire up the tree
-                    //myNode.deepness <--- how far down the algorithm u are
-        //this.column =this.column -1;
-        //update Table info and/or GUI
-    
     }
     
     public void moveLeftTest(char[][] board) throws IllegalMoveException{
-        
-        //test to see if move is applicable -- (redundant?)
-        
-       
-       // System.out.println(myOtherSymbol + "i r lefty");
+
         if(this.column-1<0){
         
             throw new IllegalMoveException(myColour + " left move  column out of bounds");
@@ -224,9 +199,8 @@ public class Checker {
         this.row = this.row + upOrDown;
         this.column = this.column -1;
         board[this.row][this.column] = mySymbol;
-        System.out.println("I have branched, my score is: " + score);
-        tester.counter++;
-    
+        myNode.branch(score, board);
+
     }
     /*Resets Checker for next move on it*/
     public void moveRight(char[][] board) throws IllegalMoveException{
@@ -244,39 +218,23 @@ public class Checker {
     
         board = BoardUtilities.buildBoard(board);
         moveRightTest(board);
-       // System.out.println(blackChecker);
+
        
         if(checkTakeRight(board)){//testing for take in one single turn
 
           
-            takeRightLogic(board);
-            System.out.println("Is break");
-            
-                doMoves(board);
+           takeRightLogic(board);
+ 
+           doMoves(board);
            
         }
         else{
             
             doMoveRightLogic(board);
             kingMe(board);
-            //System.out.println("I have branched, my score is: " + score);
-            
-        
+
         }
 
-        // AlphaBetaNode newNode = new AlphaBetaNode(myNode, board, score, myNode.depthLevel+1, !(myNode.isMaxNode));
-         // makes a king if appropriate
-         
-         // probably just need to brach here. is awkward buttttttttttttttttttttt how else?
-         
-        
-          //BoardUtilities.printBoard(board);
-        // myNode.branch(score, board);
-        //new AlphaBetaTree(myNode, !(myNode.isIsMaxNode()), myNode.getDepthLevel() + 1, myNode.getAlpha(), myNode.getBeta(), myNode.getCurrentScore() + score, board).getBestMove();
-
-        // return new BoardScorePair(score, board);
-       
-         //return newNode.getBestMove(); 
     }
     public void moveRightTest(char[][] board) throws IllegalMoveException{
     
@@ -304,7 +262,8 @@ public class Checker {
         this.row = this.row + upOrDown;
         this.column = this.column +1;
         board[this.row][this.column] = mySymbol;
-        tester.counter++;
+        myNode.branch(score, board);
+
     
     }
     ///// helper methods ////
@@ -341,8 +300,9 @@ public class Checker {
         this.column = this.column-2;
 
         score += point;
-        tester.counter++;
+        
         kingMe(board);
+        myNode.branch(score, board);
     
     }
     public void takeRightLogic(char[][] board){
@@ -354,8 +314,9 @@ public class Checker {
         this.column = this.column+2;
 
         score += point; 
-        tester.counter++;
+
         kingMe(board);
+        myNode.branch(score, board);
     
     }
     public void doMoves(char[][] board){
@@ -364,52 +325,40 @@ public class Checker {
        
         if(checkTakeLeft(board) && checkTakeRight(board)){
 
-                 //System.out.println("I can take both - I has branched: " +score);
-                 //need to branch here as well?
-                 //System.out.println("I have branched,  my score is: " + score);
-                  //BoardUtilities.printBoard(board);
-                  int tempscore = score;
-                  int tempRow = row;
-                  int tempCol = column;
-                  char tempSymbol = mySymbol;
-                  takeLeftLogic(board);
-                  System.out.println("branched,  my score is: " + score);
-                  score = tempscore;
-                  row = tempRow;
-                  column = tempCol;
-                  mySymbol = tempSymbol;
-                  takeRightLogic(board);
-                  System.out.println("branched,  my score is: " + score);
-                // System.out.println("I have branched, my score is: " + score);
+                int tempscore = score;
+                int tempRow = row;
+                int tempCol = column;
+                char tempSymbol = mySymbol;
+                
+                char[][]tempboard = BoardUtilities.buildBoard(board);
+                  
+                takeLeftLogic(board);
+
+               
+                doMoves(board);
+                score = tempscore;
+                row = tempRow;
+                column = tempCol;
+                mySymbol = tempSymbol;
+                board = tempboard;
+                  
+                takeRightLogic(board);
+
      
         }
         else if(checkTakeLeft(board)){
 
-             System.out.println("I have branched before taking in sec move left, my score is: " + score);
-            //myNode.branch(score, board);
-             //BoardUtilities.printBoard(board);
              takeLeftLogic(board);
-            //System.out.println("EXPLAIN is BLACK to me how the score of" + score + " is returned");
-     
-             //BoardUtilities.printBoard(board);
-           // System.out.println("EXPLAIN is BLACK to me how the score of " + score + " is returned");
+             
         }
         else if(checkTakeRight(board)){
 
-             System.out.println("I have branched before taking in sec right move, my score is: " + score);
-             //BoardUtilities.printBoard(board);
-            //myNode.branch(score, board);
-            
              takeRightLogic(board);
-            //BoardUtilities.printBoard(board);
-            //System.out.println("EXPLAIN is BLACK to me how the score of " + score + " is returned");
-
+ 
         }
-        
-        System.out.println("right move is: "+ checkTakeLeft(board) + " right is " + checkTakeRight(board));
+
         if(checkTakeLeft(board) || checkTakeRight(board)){// if can keep going
-        
-            System.out.println("Can still move");
+
             doMoves(board);
         }
 

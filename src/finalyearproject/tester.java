@@ -179,7 +179,7 @@ public class tester {
                     }
                     else if(currentBoard[i][j] == 'X'){
                     
-                        //blackCheckers.add(new Checker(i, j, false, false, false));
+                        blackCheckers.add(new Checker(i, j, false,new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard)));
                     
                     }                
                 }            

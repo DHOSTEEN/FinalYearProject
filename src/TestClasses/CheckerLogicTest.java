@@ -254,7 +254,7 @@ public class CheckerLogicTest {
              static char[][] blackKingTest6 = {//tetsing bcd
     
             {'W', 'B','W', 'B','W', 'B','W', 'B',},
-            {'B', 'O','W', 'W','W', 'O','B', 'W',},
+            {'B', 'E','W', 'W','W', 'O','B', 'W',},
             {'B', 'W','B', 'W','B', 'W','B', 'W',},
             {'W', 'O','W', 'O','W', 'W','W', 'B',},
             {'B', 'W','B', 'W','B', 'W','B', 'W',},
@@ -277,8 +277,8 @@ public class CheckerLogicTest {
     public static void main (String args[]){
         //blackTest();
        //redTest();
-       //redKingTest();
-       blackKingTest();
+       redKingTest();
+       //blackKingTest();
         
         
     
@@ -386,7 +386,7 @@ public class CheckerLogicTest {
     
     public static void redKingTest(){
     
-        char[][] currentBoard = redKingTest;
+        char[][] currentBoard = blackKingTest7;
         
         for(int i =0; i<currentBoard.length; i++){// makes a Checker as per board
             
@@ -399,15 +399,16 @@ public class CheckerLogicTest {
                        
                     
                     }
-                    else if(currentBoard[i][j] == 'X'){
+                    else if(currentBoard[i][j] ==  'O'){
                     
-                        //blackCheckers.add(new Checker(i, j, false, false, false));
+                        redCheckers.add(new CheckerTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard)));
                     
                     }                
                 } 
                 
         }
     
+        if(redCheckers.get(0) instanceof CheckerKingTEST){
              try{
             ((CheckerKingTEST)redCheckers.get(0)).moveLeft(currentBoard);
             //System.out.println(testPair.getScore());
@@ -442,6 +443,7 @@ public class CheckerLogicTest {
        
         System.out.println("\n" + (y+(-x*2)));
         System.out.println(counter);
+        }
     }
     public static void blackKingTest(){
     
