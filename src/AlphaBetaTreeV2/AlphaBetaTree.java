@@ -58,6 +58,9 @@ public class AlphaBetaTree {
     private int beta;
     private boolean allChildrenExplored;
     
+    private boolean hasMoved;
+    
+    
     public AlphaBetaTree(AlphaBetaTree parent, boolean myType, int newDepthLevel,int passedAlpha, int passedBeta, int culmativeScore, char[][] passedBoard, int maxDepth){
     
         parentNode = parent;
@@ -81,6 +84,7 @@ public class AlphaBetaTree {
     private void findBestMove(){
         
         //System.out.println("My current Val is: " + currentScore);
+        hasMoved = false;
         if(maxDepth!=depthLevel){
             
             readBoard();
@@ -89,9 +93,13 @@ public class AlphaBetaTree {
                 branchAtMove(checkers);
             
             }
-            allChildrenExplored = true;
-            propergate();
-        
+            if(hasMoved){
+                allChildrenExplored = true;
+                propergate();
+            }
+            else{
+                leafPropergate();
+            }
         
         }
         else{
@@ -149,20 +157,24 @@ public class AlphaBetaTree {
     private void testMoves(Checker checker){
         try{
              checker.moveLeft(currentBoard);
+              hasMoved = true;
         }catch(IllegalMoveException e){}
        
         try{
              checker.moveRight(currentBoard);
+              hasMoved = true;
         }catch(IllegalMoveException e){}
        
         if(checker instanceof CheckerKing){
     
             try{
                     ((CheckerKing) checker).moveBackLeft(currentBoard);
+                     hasMoved = true;
                 }catch(IllegalMoveException e){}
            
             try{
                     ((CheckerKing) checker).moveBackRight(currentBoard);
+                     hasMoved = true;
                 }catch(IllegalMoveException e){}
             
         }
@@ -180,24 +192,30 @@ public class AlphaBetaTree {
     }
     private void leafPropergate(){
         //System.out.println("I am a Leaf at depth of " + depthLevel +" value is: " + currentScore + "parent value is: " + parentNode.nodeValue);
-        if(isMaxNode){//sending to a min node
-            if(currentScore!=616){
-                if(currentScore<parentNode.nodeValue || parentNode.nodeValue == 616){
-                    parentNode.nodeValue = currentScore;
-                    parentNode.bestBoard = currentBoard;
-                       //System.out.println("parent(MIN) value is: " + nodeValue);
+        if(parentNode!=null){
+            if(isMaxNode){//sending to a min node
+                if(currentScore!=616){
+                    if(currentScore<parentNode.nodeValue || parentNode.nodeValue == 616){
+                        parentNode.nodeValue = currentScore;
+                        parentNode.bestBoard = currentBoard;
+                           //System.out.println("parent(MIN) value is: " + nodeValue);
+                    }
                 }
-            }
-       }
-       else{
-            if(currentScore!=616){
-                if(currentScore>parentNode.nodeValue || parentNode.nodeValue == 616){
-                    parentNode.nodeValue = currentScore;
-                    parentNode.bestBoard = currentBoard;
-                }
-            //System.out.println("parent(MAX) value is: " + nodeValue);
            }
-       }
+           else{
+                if(currentScore!=616){
+                    if(currentScore>parentNode.nodeValue || parentNode.nodeValue == 616){
+                        parentNode.nodeValue = currentScore;
+                        parentNode.bestBoard = currentBoard;
+                    }
+                //System.out.println("parent(MAX) value is: " + nodeValue);
+               }
+           }
+        }
+        else{
+            bestBoard = currentBoard;
+            nodeValue = currentScore;
+        }
     
     }
     private void propergate(){
