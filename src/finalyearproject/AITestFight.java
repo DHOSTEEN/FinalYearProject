@@ -26,11 +26,20 @@ public class AITestFight {
      long redSum= 0;
      long blackSum =0;
      char[][] oldBoard = board;
-    
+        System.out.println("WIBB");
     while(count<30){
-    
-        AlphaBetaTree isRedAI = new AlphaBetaTree(null, true, 0, -1000, 1000, 0, board, 3);
+        
         time1 = new Date().getTime();
+        for(int i =0; i<6; i++){
+        
+            AlphaBetaTree isRedAI = new AlphaBetaTree(null, true, 0, -1000, 1000, 0, board, i);
+        
+             isRedAI.getBestMove();
+        
+        }
+    
+        AlphaBetaTree isRedAI = new AlphaBetaTree(null, true, 0, -1000, 1000, 0, board, 7);
+       // time1 = new Date().getTime();
         board = isRedAI.getBestMove();
         if(board.equals(oldBoard)){
         
@@ -44,7 +53,7 @@ public class AITestFight {
         printBoard(board);
         
         
-        AlphaBetaTree isBlackAI = new AlphaBetaTree(null, false, 0, -1000, 1000, 0, board, 7);
+        AlphaBetaTree isBlackAI = new AlphaBetaTree(null, false, 0, -1000, 1000, 0, board, 3);
         
         
         time1 = new Date().getTime();
