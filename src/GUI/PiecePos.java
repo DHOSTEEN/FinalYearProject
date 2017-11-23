@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package guichecker;
-
+package GUI;
 import javax.swing.JButton;
 
 /**
@@ -67,6 +66,13 @@ private boolean isKing;
             this.colour = colour;
             this.isKing = isKing;
             this.button = button;
+    }
+    public PiecePos(int row, int col, JButton button){
+        
+            this.row = row;
+            this.col = col;
+            this.button = button;
+    
     }
     
     

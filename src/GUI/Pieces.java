@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package guichecker;
+package GUI;
 
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.awt.event.ActionEvent;
@@ -20,19 +20,23 @@ public class Pieces {
     private ArrayList<PiecePos> blacks;
     private ArrayList<PiecePos> reds;
     
-    private Hashtable<Integer, PiecePos> lookUp = new Hashtable<>();
+    private Hashtable<String, PiecePos> lookUp = new Hashtable<>();
     private Hashtable<JButton, PiecePos> boardLookUp = new Hashtable<>();
     
     public void add(PiecePos piece){
     
         System.out.println("ADDED");
-        Integer key = piece.getRow() + piece.getCol();
+        System.out.println("Added in row: " +piece.getRow());
+         System.out.println("Added in col: " +piece.getCol());
+         Integer wibble = piece.getRow() + piece.getCol();
+         System.out.println("wible is " + wibble);
+        String key = piece.getRow() + "-" + piece.getCol();
         lookUp.put(key, piece);
         boardLookUp.put(piece.getButton(),piece);
     }
     
     public boolean contains(int row, int col){
-        Integer key = row + col;
+        String key = row +"-"+ col;
         
         
        return lookUp.containsKey(key);
@@ -48,23 +52,28 @@ public class Pieces {
     
     
     }
+    public PiecePos getPiece(int row, int col){
+        String key = row+ "-"+ col;
+        return lookUp.get(key);
+    
+    }
     public boolean isColour(boolean colour, int row, int col){
     
-        Integer key = row + col;
+           String key = row+ "-"+ col;
         return lookUp.get(key).isColour() == colour;
     
     }
     public boolean type(int row, int col){
     
-        Integer key = row + col;
+           String key = row+ "-"+ col;
         return lookUp.get(key).isKing();
     }
-    public void remove(int row, int col){
+    public void remove(JButton button){
     
-        Integer key = row + col;
-        JButton x = lookUp.get(key).getButton();
+        String key = boardLookUp.get(button).getRow() +"-"+ boardLookUp.get(button).getCol();
+    
         lookUp.remove(key);
-        boardLookUp.remove(x);
+        boardLookUp.remove(button);
     
     }
 }
