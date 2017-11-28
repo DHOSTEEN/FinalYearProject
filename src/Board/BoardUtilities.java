@@ -10,6 +10,16 @@ package Board;
  * @author Daniel
  */
 public class BoardUtilities {
+
+    public static char getBoardSymbol(int i, int j){
+        
+        if(i%2==0 && j%2==0){return 'W';}
+        else if(i%2==0){return 'B';}
+        else if(j%2==0){return 'B';}
+        else{return 'W';}
+    
+    }
+    
     
     public static char[][] buildBoard(char[][] board){
     

@@ -73,6 +73,8 @@ public class FinalYearProject {
              
         } ;
         board = buildBoard();
+        System.out.println("THIS IS BAORD:  ");
+        printBoard(board);
        //printBoard(atestyBoard);
        placePeices(board);
        // System.out.println("\n");

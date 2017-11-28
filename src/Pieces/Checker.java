@@ -56,6 +56,13 @@ public class Checker {
    
    protected AlphaBetaTree myNode;
    
+   public Checker(int row, int column, boolean isRed){//for GUI playerLogic
+   
+        
+        startRow = row;
+        startColumn = column;
+        setVariables(isRed, false, false);
+   }
     
     public Checker(int row, int column, boolean isRed, AlphaBetaTree myNode){
         
@@ -157,7 +164,7 @@ public class Checker {
     public void doMoveLeft(char[][] board) throws IllegalMoveException{
         
         board = BoardUtilities.buildBoard(board);
-        moveLeftTest(board);
+        moveLeftTest(board);// Triggering exceptions
         
         if(checkTakeLeft(board)){//testing for take in one single turn
             
@@ -311,7 +318,7 @@ public class Checker {
         score += point;
         
         kingMe(board);
-       branch(board);
+        branch(board);
     
     }
     public void takeRightLogic(char[][] board){

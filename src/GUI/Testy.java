@@ -33,6 +33,7 @@ public class Testy extends javax.swing.JFrame {
     private Hashtable<JButton, BoardTile> boardTiles = new Hashtable<>();
     private PiecePos fromMove;
      private boolean multiMove = false;
+     private boolean hasTakenMove= false;
     public Testy() {
         initComponents();
         initComponents2();
@@ -303,12 +304,14 @@ public class Testy extends javax.swing.JFrame {
                     if(fromMove.isColour()){
 
                         moveChecker(aButton, true);
+                        
 
                     }
                 }
                 else if(moveFromP2){
                 
                     moveChecker(aButton, false);
+                    hasTakenMove = true;
                 }
                 else{
                 
@@ -327,22 +330,36 @@ public class Testy extends javax.swing.JFrame {
          int upDown;
          String icon;
         
-         if(isRed){
-         
-             upDown = 1;
-             icon = "redChecker.jpg";
-         }
-         else{
-         
-             upDown = -1;
-             icon = "blackChecker.jpg";
-         }
+       
+        
          
         int fromRow = fromMove.getRow();
         int fromCol = fromMove.getCol();
         int toRow = boardTiles.get(aButton).getRow();
         int toCol = boardTiles.get(aButton).getCol();
         boolean isKing = fromMove.isKing();
+        
+          if(isRed && isKing){
+         
+            upDown = 1;
+            icon = "redKing.jpg";
+         }
+          else if(!isRed && isKing){
+              
+              upDown = -1;
+             icon = "blackKing.jpg";
+          
+          }
+          else if(isRed){
+          
+            upDown = 1;
+            icon = "redChecker.jpg";
+          }  
+         else{
+         
+             upDown = -1;
+             icon = "blackChecker.jpg";
+         }
          
             System.out.println("Past colour check");
             System.out.println("from row: " + fromRow + " from col " + fromCol);
@@ -376,7 +393,7 @@ public class Testy extends javax.swing.JFrame {
                Image redimg = ImageIO.read(getClass().getResource(icon));
 
              aButton.setIcon(new ImageIcon(redimg));
-             allPieces.add(new PiecePos(toRow, toCol, isRed, false, aButton));
+             allPieces.add(new PiecePos(toRow, toCol, isRed, isKing, aButton));
 
              if(isRed){
             moveFromP1 = false;
@@ -389,7 +406,46 @@ public class Testy extends javax.swing.JFrame {
             moveDisplay.append("\nMove to " + toRow + " - " + toCol);
             checkKing(toRow, isRed, aButton);
         }
-        else if(canTake(aButton, toRow,  fromRow,  toCol,  fromCol,  upDown, isKing) && isEnemy(fromRow, fromCol, upDown, isRed)){
+        else if(isKing && (!allPieces.contains(aButton)) && toRow == (fromRow+(-upDown)) && (toCol == (fromCol-1) || toCol ==(fromCol+1)) &&!multiMove){
+            
+            System.out.println("Is moving");
+            String cols = "";
+            if(fromCol-1>=0){
+
+                cols+= (fromCol-1);
+            }
+            else if(fromCol+1<=7){
+
+                cols+= (fromCol+1);
+
+            }
+            System.out.println("Conditonals: " + (fromRow+(-upDown)) + " - " + cols);
+
+           buttons[fromRow][fromCol].setIcon(null);
+           allPieces.remove(fromMove.getButton());
+            System.out.println("IS DONE? " + allPieces.contains(fromRow, fromCol));
+
+    ///remove old symbol
+
+
+               Image redimg = ImageIO.read(getClass().getResource(icon));
+
+             aButton.setIcon(new ImageIcon(redimg));
+             allPieces.add(new PiecePos(toRow, toCol, isRed, isKing, aButton));
+
+             if(isRed){
+            moveFromP1 = false;
+            player1 = false;
+             }
+             else{
+             moveFromP2 = false;
+             player1 = true;
+             }
+            moveDisplay.append("\nMove to " + toRow + " - " + toCol);
+            checkKing(toRow, isRed, aButton);
+     
+         }
+        else if(canTakeLeft(aButton, toRow,  fromRow,  toCol,  fromCol,  upDown) && isEnemy(fromRow, fromCol, upDown, isRed)){
             System.out.println("weeeeeeeeeeeeeeeeeeeee");
             
               //System.out.println("Conditonals: " + (fromRow+upDown) + " - " + cols);
@@ -404,7 +460,7 @@ public class Testy extends javax.swing.JFrame {
                Image redimg = ImageIO.read(getClass().getResource(icon));
 
              aButton.setIcon(new ImageIcon(redimg));
-             allPieces.add(new PiecePos(toRow, toCol, isRed, false, aButton));
+             allPieces.add(new PiecePos(toRow, toCol, isRed, isKing, aButton));
              
              ///
             
@@ -423,12 +479,110 @@ public class Testy extends javax.swing.JFrame {
             moveDisplay.append("\nMove to " + toRow + " - " + toCol);
             checkKing(toRow, isRed, aButton);
         }
-        else{
+        else if(canTakeRight(aButton, toRow,  fromRow,  toCol,  fromCol,  upDown) && isEnemy(fromRow, fromCol, upDown, isRed)){
+            
+            buttons[fromRow][fromCol].setIcon(null);
+           allPieces.remove(fromMove.getButton());
+            System.out.println("IS DONE? " + allPieces.contains(fromRow, fromCol));
+
+    ///remove old symbol
+
+
+               Image redimg = ImageIO.read(getClass().getResource(icon));
+
+             aButton.setIcon(new ImageIcon(redimg));
+             allPieces.add(new PiecePos(toRow, toCol, isRed, isKing, aButton));
+             
+             ///
+            
+             ///
+            
+            if(isRed){
+            moveFromP1 = false;
+            multiMove = true;
+            //player1 = false;
+             }
+             else{
+             moveFromP2 = false;
+             multiMove = true;
+            // player1 = true;
+             }
+            moveDisplay.append("\nMove to " + toRow + " - " + toCol);
+            checkKing(toRow, isRed, aButton);
+        
+        }
+        
+        else if(isKing && kingCanTakeRight(aButton, toRow,  fromRow,  toCol,  fromCol,  upDown) && isEnemyofKing(fromRow, fromCol, upDown, isRed)){
+            
+            buttons[fromRow][fromCol].setIcon(null);
+           allPieces.remove(fromMove.getButton());
+            System.out.println("IS DONE? " + allPieces.contains(fromRow, fromCol));
+
+    ///remove old symbol
+
+
+               Image redimg = ImageIO.read(getClass().getResource(icon));
+
+             aButton.setIcon(new ImageIcon(redimg));
+             allPieces.add(new PiecePos(toRow, toCol, isRed, isKing, aButton));
+             
+             ///
+            
+             ///
+            
+            if(isRed){
+            moveFromP1 = false;
+            multiMove = true;
+            //player1 = false;
+             }
+             else{
+             moveFromP2 = false;
+             multiMove = true;
+            // player1 = true;
+             }
+            moveDisplay.append("\nMove to " + toRow + " - " + toCol);
+            checkKing(toRow, isRed, aButton);
+        
+        }
+         else if(isKing && kingCanTakeLeft(aButton, toRow,  fromRow,  toCol,  fromCol,  upDown) && isEnemyofKing(fromRow, fromCol, upDown, isRed)){
+            
+            buttons[fromRow][fromCol].setIcon(null);
+           allPieces.remove(fromMove.getButton());
+            System.out.println("IS DONE? " + allPieces.contains(fromRow, fromCol));
+
+    ///remove old symbol
+
+
+               Image redimg = ImageIO.read(getClass().getResource(icon));
+
+             aButton.setIcon(new ImageIcon(redimg));
+             allPieces.add(new PiecePos(toRow, toCol, isRed, isKing, aButton));
+             
+             ///
+            
+             ///
+            
+            if(isRed){
+            moveFromP1 = false;
+            multiMove = true;
+            //player1 = false;
+             }
+             else{
+             moveFromP2 = false;
+             multiMove = true;
+            // player1 = true;
+             }
+            moveDisplay.append("\nMove to " + toRow + " - " + toCol);
+            
+            checkKing(toRow, isRed, aButton);
+        
+        }
+         else if(hasTakenMove){
 
             moveFromP1 = false;
-             moveFromP2 = false;
-             multiMove = false;
-             player1 = !player1;
+            moveFromP2 = false;
+            multiMove = false;
+            player1 = !player1;
 
         }
      
@@ -442,30 +596,89 @@ public class Testy extends javax.swing.JFrame {
         if(row == 7 && isRed){
         Image redimg = ImageIO.read(getClass().getResource("redKing.jpg"));
             aButton.setIcon(new ImageIcon(redimg));
+            int kingRow = allPieces.getPiece(aButton).getRow();
+            int kingCol = allPieces.getPiece(aButton).getCol();
+            allPieces.remove(aButton);
+       
+            allPieces.add(new PiecePos(kingRow, kingCol, isRed, true, aButton));
+            
         
         }
         else if(row ==0 && !isRed){
             Image redimg = ImageIO.read(getClass().getResource("blackKing.jpg"));
             aButton.setIcon(new ImageIcon(redimg));
+            
+            int kingRow = allPieces.getPiece(aButton).getRow();
+            int kingCol = allPieces.getPiece(aButton).getCol();
+            allPieces.remove(aButton);
+       
+            allPieces.add(new PiecePos(kingRow, kingCol, isRed, true, aButton));
         
         }
     
     }
-     private boolean canTake(JButton aButton, int toRow, int fromRow, int toCol, int fromCol, int upDown, boolean isKing){
+     private boolean canTakeLeft(JButton aButton, int toRow, int fromRow, int toCol, int fromCol, int upDown){
      
          boolean test = false;
-         System.out.println("In canTake");
+         System.out.println("In canTakeLeft");
         /* if(isKing){
         
              test = !allPieces.contains(aButton) && (normalTakeMove(toRow, fromRow, toCol, fromCol, upDown) || kingTakeMove(toRow, fromRow, toCol, fromCol, upDown));
          }
          else{*/
-            test = !allPieces.contains(aButton) && toRow == (fromRow+upDown*2) && (toCol == (fromCol-2) || toCol ==(fromCol+2));
+            test = !allPieces.contains(aButton) && toRow == (fromRow+upDown*2) && (toCol == (fromCol-2));
          System.out.println(test);
          
          //}
          return test;
      }
+      private boolean canTakeRight(JButton aButton, int toRow, int fromRow, int toCol, int fromCol, int upDown){
+     
+         boolean test = false;
+         System.out.println("In canTakeRight");
+        /* if(isKing){
+        
+             test = !allPieces.contains(aButton) && (normalTakeMove(toRow, fromRow, toCol, fromCol, upDown) || kingTakeMove(toRow, fromRow, toCol, fromCol, upDown));
+         }
+         else{*/
+            test = !allPieces.contains(aButton) && toRow == (fromRow+upDown*2) && (toCol == (fromCol+2));
+         System.out.println(test);
+         
+         //}
+         return test;
+     }
+      private boolean kingCanTakeRight(JButton aButton, int toRow, int fromRow, int toCol, int fromCol, int upDown){
+          
+           boolean test = false;
+         System.out.println("In KingcanTakeRight");
+        /* if(isKing){
+        
+             test = !allPieces.contains(aButton) && (normalTakeMove(toRow, fromRow, toCol, fromCol, upDown) || kingTakeMove(toRow, fromRow, toCol, fromCol, upDown));
+         }
+         else{*/
+            test = !allPieces.contains(aButton) && toRow == (fromRow+(-upDown)*2) && (toCol == (fromCol+2));
+         System.out.println(test);
+         
+         //}
+         return test;
+      
+      }
+      private boolean kingCanTakeLeft(JButton aButton, int toRow, int fromRow, int toCol, int fromCol, int upDown){
+     
+         boolean test = false;
+         System.out.println("In KingcanTakeLeft");
+        /* if(isKing){
+        
+             test = !allPieces.contains(aButton) && (normalTakeMove(toRow, fromRow, toCol, fromCol, upDown) || kingTakeMove(toRow, fromRow, toCol, fromCol, upDown));
+         }
+         else{*/
+            test = !allPieces.contains(aButton) && toRow == (fromRow+(-upDown)*2) && (toCol == (fromCol-2));
+         System.out.println(test);
+         
+         //}
+         return test;
+      
+      }
      private boolean isEnemy(int row, int col, int upDown, boolean isRed){
      
          boolean test = false;
@@ -496,15 +709,72 @@ public class Testy extends javax.swing.JFrame {
          return test;
      }
      
-     private boolean normalTakeMove(int toRow, int fromRow, int toCol, int fromCol, int upDown){
-         
-         return toRow == (fromRow+upDown*2) && (toCol == (fromCol-2) || toCol ==(fromCol+2));
+      private boolean isEnemyofKing(int row, int col, int upDown, boolean isRed){
      
+         boolean test = false;
+         System.out.println("in isEnenyOfKing");
+         if(allPieces.contains(row+(-upDown), (col-1))){
+             System.out.println("enemy to bot left");
+            test = isRed != allPieces.getPiece(row+(-upDown), (col-1)).isColour() ;
+            if(test){
+            
+                JButton killedPiece = allPieces.getPiece(row+(-upDown), (col-1)).getButton();
+                killedPiece.setIcon(null);
+                allPieces.remove(killedPiece);
+  
+            }
+         }
+         else if(allPieces.contains(row+(-upDown), (col+1))){
+             System.out.println("enemy to bot right");
+            test =  isRed != allPieces.getPiece(row+(-upDown), (col+1)).isColour();
+             if(test){
+            
+                JButton killedPiece = allPieces.getPiece(row+(-upDown), (col+1)).getButton();
+                killedPiece.setIcon(null);
+                allPieces.remove(killedPiece);
+
+            }
+         }
+         System.out.println("isEnemyofKing is: " + test);
+         return test;
      }
-     private boolean kingTakeMove(int toRow, int fromRow, int toCol, int fromCol, int upDown){
+      
+       private void moveLogic(int fromRow, int fromCol, int toRow, int toCol, String icon, boolean isKing, JButton aButton, boolean isRed) throws IOException{
+    
+         buttons[fromRow][fromCol].setIcon(null);
+           allPieces.remove(fromMove.getButton());
+            System.out.println("IS DONE? " + allPieces.contains(fromRow, fromCol));
+
+    ///remove old symbol
+
+
+               Image redimg = ImageIO.read(getClass().getResource(icon));
+
+             aButton.setIcon(new ImageIcon(redimg));
+             allPieces.add(new PiecePos(toRow, toCol, isRed, isKing, aButton));
+             
+             ///
+            
+             ///
+            
+            if(isRed){
+            moveFromP1 = false;
+            multiMove = true;
+            //player1 = false;
+             }
+             else{
+             moveFromP2 = false;
+             multiMove = true;
+            // player1 = true;
+             }
+            moveDisplay.append("\nMove to " + toRow + " - " + toCol);
+            checkKing(toRow, isRed, aButton);
+        
+    
+    }
      
-         return toRow == fromRow+(-upDown*2) && (toCol == (fromCol-2) || toCol ==(fromCol+2));
-     }
+     
+   
 private JButton[][] buttons;
 private JPanel jPanel1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
