@@ -11,6 +11,7 @@ import Board.BoardUtilities;
 import Pieces.IllegalMoveException;
 import finalyearproject.FinalYearProject;
 import finalyearproject.tester;
+import java.util.ArrayList;
 
 /**
  *
@@ -52,9 +53,16 @@ public class Checker {
    private int tempRow;
    private int tempCol;
    
-   protected boolean isFirstMove;
+   protected boolean isMultiMove;
    
    protected AlphaBetaTree myNode;
+   
+   protected MoveCoordinates fromMove;
+   protected MoveCoordinates toMove;
+   protected MoveCoordinates takenMove;
+   protected ArrayList<MoveCoordinates> allMoves;
+   protected final boolean isTaken= true;
+
    
    public Checker(int row, int column, boolean isRed){//for GUI playerLogic
    
@@ -154,6 +162,7 @@ public class Checker {
         score = 0;
         row = startRow;
         column = startColumn;
+        isMultiMove = false;
 
         doMoveLeft(board);
     
@@ -211,11 +220,18 @@ public class Checker {
     }
     public void doMoveLeftLogic(char[][] board){
         
+        if(!isMultiMove){allMoves = new ArrayList<>();}
+        fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
+        allMoves.add(fromMove);
+        
         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column);
         this.row = this.row + upOrDown;
         this.column = this.column -1;
         board[this.row][this.column] = mySymbol;
-       branch(board);
+        
+        toMove = new MoveCoordinates(this.row, this.column, !isTaken);
+        allMoves.add(toMove);
+        branch(board);
 
     }
     /*Resets Checker for next move on it*/
@@ -225,6 +241,7 @@ public class Checker {
         score = 0;
         row = startRow;
         column = startColumn;
+        isMultiMove = false;
     
         doMoveRight(board);
     
@@ -274,10 +291,18 @@ public class Checker {
         }
     }
     public void doMoveRightLogic(char[][] board){
+        if(!isMultiMove){allMoves = new ArrayList<>();}
+        fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
+        allMoves.add(fromMove);
+        
         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column);;
         this.row = this.row + upOrDown;
         this.column = this.column +1;
         board[this.row][this.column] = mySymbol;
+        
+        toMove = new MoveCoordinates(this.row, this.column, !isTaken);
+        allMoves.add(toMove);
+        
        branch(board);
 
     
@@ -309,6 +334,13 @@ public class Checker {
     }
     public void takeLeftLogic(char[][] board){
         
+        if(!isMultiMove){allMoves = new ArrayList<>();}
+        fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
+        allMoves.add(fromMove);
+        
+        takenMove =new MoveCoordinates(this.row + upOrDown, this.column-1, isTaken);
+        allMoves.add(takenMove);
+        
         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column); // boardSymbol(int i, int j)
         board[this.row + upOrDown][this.column-1] = FinalYearProject.boardSymbol(this.row + upOrDown, this.column -1);
         board[this.row + (upOrDown*2)][this.column-2] = mySymbol;
@@ -317,11 +349,20 @@ public class Checker {
 
         score += point;
         
+        toMove = new MoveCoordinates(this.row, this.column, !isTaken);
+        allMoves.add(toMove);
         kingMe(board);
         branch(board);
     
     }
     public void takeRightLogic(char[][] board){
+        
+        if(!isMultiMove){allMoves = new ArrayList<>();}
+        fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
+        allMoves.add(fromMove);
+        
+        takenMove = new MoveCoordinates(this.row + upOrDown, this.column+1, isTaken);
+        allMoves.add(takenMove);
         
         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column);
         board[this.row+ upOrDown][this.column +1] = FinalYearProject.boardSymbol(this.row + upOrDown, this.column+1);
@@ -330,6 +371,9 @@ public class Checker {
         this.column = this.column+2;
 
         score += point; 
+        
+        toMove = new MoveCoordinates(this.row, this.column, !isTaken);
+        allMoves.add(toMove);
 
         kingMe(board);
        branch(board);
@@ -375,6 +419,7 @@ public class Checker {
 
         if(checkTakeLeft(board) || checkTakeRight(board)){// if can keep going
 
+            isMultiMove = true;
             doMoves(board);
         }
 
@@ -391,8 +436,8 @@ public class Checker {
         
             extra = extraPoint*4;
         }
-        
-        myNode.branch((score + extra), board);
+        allMoves.add(new MoveCoordinates(-1, score + extra, false));
+        myNode.branch((score + extra), board, allMoves);
     
     }
     /*Booleans*/

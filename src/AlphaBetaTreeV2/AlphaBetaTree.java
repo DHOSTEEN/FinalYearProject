@@ -5,9 +5,11 @@
  */
 package AlphaBetaTreeV2;
 
+import Pieces.BoardMovesPair;
 import Pieces.Checker;
 import Pieces.CheckerKing;
 import Pieces.IllegalMoveException;
+import Pieces.MoveCoordinates;
 import java.util.ArrayList;
 
 /**
@@ -59,9 +61,10 @@ public class AlphaBetaTree {
     private boolean allChildrenExplored;
     
     private boolean hasMoved;
+    private ArrayList<MoveCoordinates> allMoves;
+    private ArrayList<MoveCoordinates> bestMoves;
     
-    
-    public AlphaBetaTree(AlphaBetaTree parent, boolean myType, int newDepthLevel,int passedAlpha, int passedBeta, int culmativeScore, char[][] passedBoard, int maxDepth){
+    public AlphaBetaTree(AlphaBetaTree parent, boolean myType, int newDepthLevel,int passedAlpha, int passedBeta, int culmativeScore, char[][] passedBoard, int maxDepth, ArrayList<MoveCoordinates> allMoves){
     
         parentNode = parent;
         isMaxNode = myType;
@@ -71,13 +74,15 @@ public class AlphaBetaTree {
         currentScore = culmativeScore;
         currentBoard = passedBoard;
         this.maxDepth = maxDepth;
+        this.allMoves = allMoves;
     
     }
     
-    public char[][] getBestMove(){
+    public BoardMovesPair getBestMove(){
     
         findBestMove();
-        return bestBoard;
+        return new BoardMovesPair(bestBoard, bestMoves);
+        //return bestBoard;
     
     }
     
@@ -181,9 +186,9 @@ public class AlphaBetaTree {
         
     
     }
-    public void branch(int score, char[][] board){
+    public void branch(int score, char[][] board, ArrayList<MoveCoordinates> allMoves){
         
-        new AlphaBetaTree(this, !(isMaxNode), depthLevel + 1, alpha, beta, currentScore + score, board, maxDepth).getBestMove();
+        new AlphaBetaTree(this, !(isMaxNode), depthLevel + 1, alpha, beta, currentScore + score, board, maxDepth, allMoves).getBestMove();
     }
     private void makeALeaf(){
     
@@ -198,6 +203,7 @@ public class AlphaBetaTree {
                     if(currentScore<parentNode.nodeValue || parentNode.nodeValue == 616){
                         parentNode.nodeValue = currentScore;
                         parentNode.bestBoard = currentBoard;
+                        parentNode.bestMoves = allMoves;
                            //System.out.println("parent(MIN) value is: " + nodeValue);
                     }
                 }
@@ -207,6 +213,7 @@ public class AlphaBetaTree {
                     if(currentScore>parentNode.nodeValue || parentNode.nodeValue == 616){
                         parentNode.nodeValue = currentScore;
                         parentNode.bestBoard = currentBoard;
+                         parentNode.bestMoves = allMoves;
                     }
                 //System.out.println("parent(MAX) value is: " + nodeValue);
                }
@@ -231,6 +238,7 @@ public class AlphaBetaTree {
                 parentNode.alpha = nodeValue;
                 parentNode.nodeValue = nodeValue;
                 parentNode.bestBoard = currentBoard;
+                parentNode.bestMoves = allMoves;
                 
                 //System.out.println("parent(MAX) alpha is: " + nodeValue + " parent(MAX) is: " + parentNode);
                 }
@@ -248,6 +256,7 @@ public class AlphaBetaTree {
                     //}
                     parentNode.nodeValue = nodeValue;
                     parentNode.bestBoard = currentBoard;
+                    parentNode.bestMoves = allMoves;
                     
 
                          //System.out.println("parent(MIN) beta is: " + nodeValue + " parent(MIN) is: " + parentNode);

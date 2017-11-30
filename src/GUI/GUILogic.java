@@ -36,6 +36,7 @@ public class GUILogic {
         this.buttons = buttons;
         this.allPieces = allPieces;
     }
+    public GUILogic(){}
     
     public char[][] readGUIBoard(JButton[][] buttons, Pieces allPieces){
     
@@ -132,6 +133,29 @@ public class GUILogic {
         
         }
     
+    }
+    
+    public String getIcon(boolean isRed, boolean isKing){
+    
+        String icon;
+         if(isRed && isKing){
+            icon = "redKing.jpg";
+         }
+          else if(!isRed && isKing){
+              
+             icon = "blackKing.jpg";
+          
+          }
+          else if(isRed){
+          
+            icon = "redChecker.jpg";
+          }  
+         else{
+         
+             icon = "blackChecker.jpg";
+         }
+    
+         return icon;
     }
     
    

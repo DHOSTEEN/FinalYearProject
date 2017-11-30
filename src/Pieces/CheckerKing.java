@@ -8,6 +8,7 @@ package Pieces;
 import AlphaBetaTreeV2.AlphaBetaTree;
 import Board.BoardUtilities;
 import finalyearproject.FinalYearProject;
+import java.util.ArrayList;
 
 
 /**
@@ -174,11 +175,20 @@ public class CheckerKing extends Checker{
     }
      public void takeBackLeftLogic(char[][] board){// literally only thing that changes is the up or down.......
          
-        board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column); // boardSymbol(int i, int j)
+         if(!isMultiMove){allMoves = new ArrayList<>();}
+         fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
+         allMoves.add(fromMove);
+         
+         takenMove = new MoveCoordinates(this.row + (-upOrDown), this.column-1, isTaken);
+         allMoves.add(takenMove);
+         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column); // boardSymbol(int i, int j)
         board[this.row + (-upOrDown)][this.column-1] = FinalYearProject.boardSymbol(this.row + (-upOrDown), this.column -1);
         board[this.row + ((-upOrDown)*2)][this.column-2] = mySymbol;
         this.row = this.row + (-upOrDown)*2;
         this.column = this.column-2;
+        
+        toMove = new MoveCoordinates(this.row, this.column, !isTaken);
+        allMoves.add(toMove);
 
         score += point;
         branch(board);
@@ -186,10 +196,17 @@ public class CheckerKing extends Checker{
     
     }
      public void doMoveBackLeftLogic(char[][] board){
+         
+         if(!isMultiMove){allMoves = new ArrayList<>();}
+         fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
+         allMoves.add(fromMove);
         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column);
         this.row = this.row + (-upOrDown);
         this.column = this.column -1;
         board[this.row][this.column] = mySymbol;
+        
+        toMove = new MoveCoordinates(this.row, this.column, !isTaken);
+        allMoves.add(toMove);
         branch(board);
         ////System.out.println("I have branched, my score is: " + score);
        //CheckerLogicTest.counter++;
@@ -259,12 +276,20 @@ public class CheckerKing extends Checker{
     }
      public void takeBackRightLogic(char[][] board){
          
+         if(!isMultiMove){allMoves = new ArrayList<>();}
+         fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
+         allMoves.add(fromMove);
+         
+         takenMove = new MoveCoordinates(this.row + (-upOrDown), this.column +1, isTaken);
+         allMoves.add(takenMove);
         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column);
         board[this.row+ (-upOrDown)][this.column +1] = FinalYearProject.boardSymbol(this.row + (-upOrDown), this.column+1);
         board[this.row + (-upOrDown)*2][this.column+2] = mySymbol;
         this.row = this.row + (-upOrDown)*2;
         this.column = this.column+2;
 
+        toMove = new MoveCoordinates(this.row,this.column, !isTaken);
+        allMoves.add(toMove);
         score += point; 
         branch(board);
        //CheckerLogicTest.counter++;
@@ -272,10 +297,15 @@ public class CheckerKing extends Checker{
     }
      private void doMoveBackRightLogic(char[][] board){
          
+         if(!isMultiMove){allMoves = new ArrayList<>();}
+         fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
+         allMoves.add(fromMove);
         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column);;
         this.row = this.row + (-upOrDown);
         this.column = this.column +1;
         board[this.row][this.column] = mySymbol;
+        toMove = new MoveCoordinates(this.row, this.column, !isTaken);
+        allMoves.add(toMove);
         branch(board);
        //CheckerLogicTest.counter++;
      

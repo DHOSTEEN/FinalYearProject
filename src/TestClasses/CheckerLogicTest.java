@@ -357,7 +357,7 @@ public class CheckerLogicTest {
                     if(currentBoard[i][j] ==  'O'){
                     
                         System.out.println("i = " + i + " j = " + j);
-                        redCheckers.add(new CheckerTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3)));
+                        redCheckers.add(new CheckerTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3, null)));
                        
                     
                     }
@@ -407,13 +407,13 @@ public class CheckerLogicTest {
                     if(currentBoard[i][j] ==  'E'){
                     
                         System.out.println("i = " + i + " j = " + j);
-                        redCheckers.add(new CheckerKingTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3)));
+                        redCheckers.add(new CheckerKingTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3, null)));
                        
                     
                     }
                     else if(currentBoard[i][j] ==  'O'){
                     
-                        redCheckers.add(new CheckerTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3)));
+                        redCheckers.add(new CheckerTEST(i, j, true, new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3, null)));
                     
                     }                
                 } 
@@ -474,7 +474,7 @@ public class CheckerLogicTest {
                     }
                     else if(currentBoard[i][j] == 'K'){
                         System.out.println("i = " + i + " j = " + j);
-                        blackCheckers.add(new CheckerKingTEST(i, j, false,new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3)));
+                        blackCheckers.add(new CheckerKingTEST(i, j, false,new AlphaBetaTree (null, true, 0, -1000, 1000, 0, currentBoard, 3, null)));
                     
                     }                
                 } 
