@@ -39,6 +39,7 @@ public class CheckerKing extends Checker{
         isMultiMove = false;
     
         doMoveLeft(board);
+        allMoves = new ArrayList<>();
         
     
     }
@@ -85,6 +86,7 @@ public class CheckerKing extends Checker{
         isMultiMove = false;
     
         doMoveRight(board);
+        allMoves = new ArrayList<>();
     
 
     
@@ -123,6 +125,7 @@ public class CheckerKing extends Checker{
         column = startColumn;
     
         doMoveBackLeft(board);
+        allMoves = new ArrayList<>();
     
         
     }
@@ -224,6 +227,7 @@ public class CheckerKing extends Checker{
         column = startColumn;
     
         doMoveBackRight(board);
+        allMoves = new ArrayList<>();
     
        
     

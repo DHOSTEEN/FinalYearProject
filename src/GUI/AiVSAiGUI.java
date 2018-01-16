@@ -31,7 +31,7 @@ public class AiVSAiGUI extends javax.swing.JFrame {
     /**
      * Creates new form Testy
      */
-    private final int depthLevel = 3;
+    private final int depthLevel = 7;
     
     private boolean player1 = true;
     private boolean moveFromP1 = false;
@@ -317,6 +317,7 @@ public class AiVSAiGUI extends javax.swing.JFrame {
         allMoves = moves.getAllMoves();
         
             System.out.println("Black Move:");
+             BoardUtilities.printBoard(board);
          updateBoard(allMoves);
         control--;
         System.out.println("Control is:" + control);
@@ -351,7 +352,7 @@ public class AiVSAiGUI extends javax.swing.JFrame {
               System.out.println(allMoves.get(i).getRow() + " - " + allMoves.get(i).getCol());
        
        }
-       //ISSUE - mult moves concatonated. why? mult takes are fine...
+       //multi takes being difficult
         int newMovePos = 0;
         String moveTally = "";
         
@@ -385,8 +386,8 @@ public class AiVSAiGUI extends javax.swing.JFrame {
             }
             else if(allMoves.get(i).getRow() == -1){
             
-                 allMoves = new ArrayList(allMoves.subList(i+1,allMoves.size()));
-               // break;
+                 updateBoard( new ArrayList(allMoves.subList(i+1,allMoves.size())));
+               break;
             }
            
             else if(!firstMove){
