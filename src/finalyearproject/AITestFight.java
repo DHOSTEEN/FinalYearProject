@@ -24,26 +24,26 @@ public class AITestFight {
 
         char[][] board = FinalYearProject.buildBoard();
         FinalYearProject.placePeices(board);
-    int count = 0;    
+    int count = 1;    
      long time1, time2;
      long redSum= 0;
      long blackSum =0;
-    /* char [][] board = { 
+    /* char[][] board = {
                 {'W','B','W','B','W','B','W','B'},
                 {'B','W','B','W','B','W','B','W'},
-                {'W','B','W','B','W','B','W','B'},
-                {'W','B','W','O','W','B','W','B'},
+                {'W','B','X','B','X','B','X','B'},
+                {'B','W','B','E','B','W','B','W'},
                 {'W','B','X','B','X','B','X','B'},
                 {'B','W','B','W','B','W','B','X'},
                 {'X','B','X','B','X','B','X','B'},
-                {'B','W','B','X','B','X','B','W'}
+                {'B','X','B','W','B','W','B','W'}
              
         } ;*/
      
      char[][] oldBoard = board;
         System.out.println("WIBB");
          printBoard(board);
-    while(count<30){
+    while(count>0){
         
         time1 = new Date().getTime();
         for(int i =0; i<6; i++){
@@ -55,7 +55,7 @@ public class AITestFight {
         }
         ArrayList<MoveCoordinates> aThing = new ArrayList<>();
        
-        AlphaBetaTree isRedAI = new AlphaBetaTree(null, true, 0, -1000, 1000, 0, board, 8, aThing);
+        AlphaBetaTree isRedAI = new AlphaBetaTree(null, true, 0, -1000, 1000, 0, board, 7, aThing);
        // time1 = new Date().getTime();
         BoardMovesPair best= isRedAI.getBestMove();
         board = best.getBoard();
@@ -68,16 +68,16 @@ public class AITestFight {
         System.out.println("\nRed's turn: " + (count +1) );
         redSum+= (time2-time1);
         System.out.println("It took " + (time2-time1 ) + "ms");
-        //printBoard(board);
+        printBoard(board);
         ArrayList<MoveCoordinates> allMoves = best.getAllMoves();
         for(int i =0; i<allMoves.size(); i++){
         
-            //System.out.println(allMoves.get(i).getRow() + " - " + allMoves.get(i).getCol());
+            System.out.println(allMoves.get(i).getRow() + " - " + allMoves.get(i).getCol());
         
         }
         
         
-        AlphaBetaTree isBlackAI = new AlphaBetaTree(null, false, 0, -1000, 1000, 0, board, 3, aThing);
+        AlphaBetaTree isBlackAI = new AlphaBetaTree(null, false, 0, -1000, 1000, 0, board, 7, aThing);
         
         
         time1 = new Date().getTime();
@@ -92,16 +92,18 @@ public class AITestFight {
         System.out.println("\nBlacks's turn: " + (count +1) );
          blackSum+= (time2-time1);
         System.out.println("It took " + (time2-time1 ) + "ms");
-        //printBoard(board);
+        
+        printBoard(board);
         
          allMoves = best.getAllMoves();
         for(int i =0; i<allMoves.size(); i++){
         
-          // System.out.println("UM!? " + allMoves.get(i).getRow() + " - " + allMoves.get(i).getCol());
+           System.out.println("UM!? " + allMoves.get(i).getRow() + " - " + allMoves.get(i).getCol());
         
         }
         
-        count++;
+        count--;
+        System.out.println("Count is: " +count);
     }
         System.out.println("Red pieces: " + BoardUtilities.countPieces('O', board));
         System.out.println("Red Kings: " + BoardUtilities.countPieces('E', board));

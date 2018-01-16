@@ -633,6 +633,7 @@ public class CheckerKing extends Checker{
            
             //System.out.println("Can still move, row : " + row + " column: " + column);
             //BoardUtilities.printBoard(board);
+            isMultiMove = true;
             doKingMoves(board);
         }
       

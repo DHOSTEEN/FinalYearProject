@@ -46,6 +46,7 @@ public class BoardUtilities {
             System.out.println("");
         }
         System.out.print("  A B C D E F G H");
+        System.out.println("");
     
     
     

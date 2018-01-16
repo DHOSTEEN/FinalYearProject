@@ -117,6 +117,7 @@ public class AlphaBetaTree {
     }
     private void branchAtMove(Checker checker){
         
+        
         if(!isMaxNode && nodeValue!=616){
             if(alpha!=-1000){
                 if(alpha>=nodeValue){

@@ -233,12 +233,12 @@ public class AiVSAiGUI extends javax.swing.JFrame {
                 {
                     buttons[row][col].setForeground(Color.black);
                     buttons[row][col].setBackground(Color.black);
-                     if(row<2){
+                     if(row<3){
                         JButton x = buttons[row][col];
                          x.setIcon(new ImageIcon(redimg));
                          allPieces.add(new PiecePos(row, col, true, false, x));//kay- search by object then
                     }
-                    if(row>5 && row<8){
+                    if(row>4 && row<8){
                          JButton x = buttons[row][col];
                          x.setIcon(new ImageIcon(blackimg));
                            allPieces.add(new PiecePos(row, col, false, false, x));
@@ -294,8 +294,8 @@ public class AiVSAiGUI extends javax.swing.JFrame {
     
         GUILogic logic = new GUILogic(buttons, allPieces);
         char[][] board = logic.readGUIBoard(buttons, allPieces);
-        int control = 20;
-        while(control > 0){
+        int control = 30;
+        while(control > 1){
         AlphaBetaTree redAI = new AlphaBetaTree(null, true, 0, -1000, 1000, 0, board, depthLevel, null);
         
         BoardMovesPair moves =  redAI.getBestMove();
@@ -318,6 +318,7 @@ public class AiVSAiGUI extends javax.swing.JFrame {
         
          updateBoard(allMoves);
         control--;
+        System.out.println("Control is:" + control);
         
         }
         
@@ -334,13 +335,15 @@ public class AiVSAiGUI extends javax.swing.JFrame {
              allPieces.add(new PiecePos(row, col, isRed, isKing, button));
      
      }
-     public void removePiece(JButton button){
+     public void removePiece(JButton button, int row, int col){
      
          button.setIcon(null);
          allPieces.remove(button);
      }
     
    public void updateBoard(ArrayList<MoveCoordinates> allMoves){
+       ///redo!
+       //will get
    
         int newMovePos = 0;
         String moveTally = "";
@@ -352,7 +355,7 @@ public class AiVSAiGUI extends javax.swing.JFrame {
             int counter = 0;
             int row = allMoves.get(i).getRow();
             int col = allMoves.get(i).getCol();
-            
+           
             
         
             if(row == -1){
@@ -364,7 +367,7 @@ public class AiVSAiGUI extends javax.swing.JFrame {
             if(allMoves.get(i).isKill()){
             
                 moveTally += "Taken piece at: " +row + " - " + col+ "/n";
-                removePiece(buttons[row][col]);
+                removePiece(buttons[row][col], row, col);
                 
             
             }
@@ -374,9 +377,11 @@ public class AiVSAiGUI extends javax.swing.JFrame {
             }
             if(i== 0){
                 System.out.println("row-col: " + row +"-"+col);
-                colour = allPieces.getPiece(row, col).isColour();
+                //colour = allPieces.getPiece(row, col).isColour();
+               // type = allPieces.getPiece(row, col).isKing();
                 type = allPieces.getPiece(row, col).isKing();
-                removePiece(buttons[row][col]);
+                colour = allPieces.getPiece(row, col).isColour();
+                removePiece(buttons[row][col], row, col);
             
             }
            else if(!allMoves.get(i).isKill()){
