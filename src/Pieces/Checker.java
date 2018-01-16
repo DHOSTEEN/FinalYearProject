@@ -60,7 +60,7 @@ public class Checker {
    protected MoveCoordinates fromMove;
    protected MoveCoordinates toMove;
    protected MoveCoordinates takenMove;
-   protected ArrayList<MoveCoordinates> allMoves;
+   protected ArrayList<MoveCoordinates> allMoves = new ArrayList<>();
    protected final boolean isTaken= true;
 
    
@@ -220,7 +220,7 @@ public class Checker {
     }
     public void doMoveLeftLogic(char[][] board){
         
-        if(!isMultiMove){allMoves = new ArrayList<>();}
+       // if(!isMultiMove){allMoves = new ArrayList<>();}
         fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
         allMoves.add(fromMove);
         
@@ -291,7 +291,7 @@ public class Checker {
         }
     }
     public void doMoveRightLogic(char[][] board){
-        if(!isMultiMove){allMoves = new ArrayList<>();}
+       // if(!isMultiMove){allMoves = new ArrayList<>();}
         fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
         allMoves.add(fromMove);
         
@@ -334,7 +334,7 @@ public class Checker {
     }
     public void takeLeftLogic(char[][] board){
         
-        if(!isMultiMove){allMoves = new ArrayList<>();}
+       // if(!isMultiMove){allMoves = new ArrayList<>();}
         fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
         allMoves.add(fromMove);
         
@@ -357,7 +357,7 @@ public class Checker {
     }
     public void takeRightLogic(char[][] board){
         
-        if(!isMultiMove){allMoves = new ArrayList<>();}
+       // if(!isMultiMove){allMoves = new ArrayList<>();}
         fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
         allMoves.add(fromMove);
         
@@ -389,6 +389,7 @@ public class Checker {
                 int tempRow = row;
                 int tempCol = column;
                 char tempSymbol = mySymbol;
+                ArrayList<MoveCoordinates> tempMoves = moveSeperator(allMoves);
                 
                 char[][]tempboard = BoardUtilities.buildBoard(board);
                   
@@ -401,7 +402,8 @@ public class Checker {
                 column = tempCol;
                 mySymbol = tempSymbol;
                 board = tempboard;
-                  
+                
+                allMoves = tempMoves;
                 takeRightLogic(board);
 
      
@@ -477,6 +479,18 @@ public class Checker {
     
     //King logic
    
+    protected ArrayList<MoveCoordinates> moveSeperator(ArrayList<MoveCoordinates> allMoves){
+    
+        ArrayList<MoveCoordinates> copyOfAllMoves = new ArrayList<>();
+        
+            for(int i =0; i<allMoves.size(); i++){
+
+                copyOfAllMoves.add(allMoves.get(i));
+
+            }
+        
+        return copyOfAllMoves;
+    } 
    
     
    

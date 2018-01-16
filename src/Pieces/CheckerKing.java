@@ -36,6 +36,7 @@ public class CheckerKing extends Checker{
         score = 0;
         row = startRow;
         column = startColumn;
+        isMultiMove = false;
     
         doMoveLeft(board);
         
@@ -81,6 +82,7 @@ public class CheckerKing extends Checker{
         score = 0;
         row = startRow;
         column = startColumn;
+        isMultiMove = false;
     
         doMoveRight(board);
     
@@ -331,8 +333,10 @@ public class CheckerKing extends Checker{
         //checkKingLeft == c
         //checkKingright == d
         if(checkTakeLeft(board) && checkTakeRight(board) && checkTakeBackLeft(board) && checkTakeBackRight(board)){//abcd - impossible
+ //MUST BE IMMUTABLE COPY
  
-           int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
+           int tempScore = score; int tempRow = row; int tempCol = column; char[][]tempBoard = BoardUtilities.buildBoard(board); ArrayList<MoveCoordinates> tempMoves = moveSeperator(allMoves);
+           
         
                  // char tempSymbol = mySymbol;
             //board = BoardUtilities.buildBoard(board);
@@ -341,21 +345,22 @@ public class CheckerKing extends Checker{
             doKingMoves(board);
           
             
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
+          
             //board = BoardUtilities.buildBoard(board);
             takeRightLogic(board);//do b
                       //System.out.println("King has done the impossible!!!");
             doKingMoves(board);
            
             
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
                       //System.out.println("King has done the impossible!!!");
             doKingMoves(board);
         
             
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
                     //System.out.println("King has done the impossible!!!");
@@ -364,7 +369,7 @@ public class CheckerKing extends Checker{
           
         else if(checkTakeLeft(board) && checkTakeRight(board) && checkTakeBackLeft(board)){//abc
             
-           int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
+           int tempScore = score; int tempRow = row; int tempCol = column; char[][]tempBoard = BoardUtilities.buildBoard(board); ArrayList<MoveCoordinates> tempMoves = moveSeperator(allMoves);
             //System.out.println("King has branched on 'abc");
             //board = BoardUtilities.buildBoard(board);
                  // char tempSymbol = mySymbol;
@@ -374,14 +379,14 @@ public class CheckerKing extends Checker{
             doKingMoves(board);
            
             
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
             takeRightLogic(board);//do b
              //System.out.println("King has branched second time on 'abc', row: " + row + " column: " + column + " my score is: " + score );
             doKingMoves(board);
            
             
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
             //System.out.println("King has branched third time one 'abc', row: " + row + " column: " + column + " my score is: " + score);
@@ -394,7 +399,7 @@ public class CheckerKing extends Checker{
         }
         else if(checkTakeLeft(board) && checkTakeRight(board) && checkTakeBackRight(board)){//abd
             
-          int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
+          int tempScore = score; int tempRow = row; int tempCol = column; char[][]tempBoard = BoardUtilities.buildBoard(board); ArrayList<MoveCoordinates> tempMoves = moveSeperator(allMoves);
              //System.out.println("King has branched on 'abd");
            //board = BoardUtilities.buildBoard(board);
                  // char tempSymbol = mySymbol;
@@ -402,14 +407,14 @@ public class CheckerKing extends Checker{
        //System.out.println("King has branched first time on 'abd', row: " + row + " column: " + column + " my score is: " + score);
             doKingMoves(board);
             
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
             takeRightLogic(board);//do b
        //System.out.println("King has branched second time on 'abd', row: " + row + " column: " + column + " my score is: " + score);
             doKingMoves(board);
           
             
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
        //System.out.println("King has branched third time on 'abd', row: " + row + " column: " + column + " my score is: " + score);
@@ -419,7 +424,7 @@ public class CheckerKing extends Checker{
         }
         else if(checkTakeRight(board) && checkTakeBackLeft(board) && checkTakeBackRight(board)){//bcd
            
-           int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
+           int tempScore = score; int tempRow = row; int tempCol = column; char[][]tempBoard = BoardUtilities.buildBoard(board); ArrayList<MoveCoordinates> tempMoves = moveSeperator(allMoves);
              //System.out.println("King has branched on 'bcd");
 
             //board = BoardUtilities.buildBoard(board);
@@ -428,14 +433,14 @@ public class CheckerKing extends Checker{
             doKingMoves(board);
            
             
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
         //System.out.println("King has branched second time on 'bcd, row: " + row + " column: " + column + " my score is: " + score);
             doKingMoves(board);
              // <---- HERE IS ISSUE WHY!?
             
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
        //System.out.println("King has branched third time on 'bcd', row: " + row + " column: " + column + " my score is: " + score);
@@ -444,7 +449,7 @@ public class CheckerKing extends Checker{
         }
         else if(checkTakeLeft(board) && checkTakeBackLeft(board) && checkTakeBackRight(board)){//acd
             
-           int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
+           int tempScore = score; int tempRow = row; int tempCol = column; char[][]tempBoard = BoardUtilities.buildBoard(board); ArrayList<MoveCoordinates> tempMoves = moveSeperator(allMoves);
             ////System.out.println("Values in 'acd' is: " + score + " row: " + row + " column: " + column);
             // //System.out.println("BackUp Values in 'acd' is: " + tempScore + " row: " + tempRow + " column: " + tempCol);
 
@@ -456,7 +461,7 @@ public class CheckerKing extends Checker{
             doKingMoves(board);
            
             
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
               ////System.out.println("King back in 'acd' - values are score: " + score + " row: " + row + " column: " + column);
              // //System.out.println("BackUp Values in 'acd' is: " + tempScore + " row: " + tempRow + " column: " + tempCol);
             //board = BoardUtilities.buildBoard(board);
@@ -465,7 +470,7 @@ public class CheckerKing extends Checker{
              //BoardUtilities.printBoard(board);
             doKingMoves(board);
    
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
              ////System.out.println("King back in 'acd' - values are score: " + score + " row: " + row + " column: " + column);
             // //System.out.println("BackUp Values in 'acd' is: " + tempScore + " row: " + tempRow + " column: " + tempCol);
             //board = BoardUtilities.buildBoard(board);
@@ -478,7 +483,7 @@ public class CheckerKing extends Checker{
         }
         else if(checkTakeLeft(board) && checkTakeRight(board)){//ab
             
-           int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
+           int tempScore = score; int tempRow = row; int tempCol = column; char[][]tempBoard = BoardUtilities.buildBoard(board); ArrayList<MoveCoordinates> tempMoves = moveSeperator(allMoves);
            //System.out.println("King has branched on 'ab");
                  // char tempSymbol = mySymbol;
                  //board = BoardUtilities.buildBoard(board);
@@ -487,7 +492,7 @@ public class CheckerKing extends Checker{
             doKingMoves(board);
           
             
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
             takeRightLogic(board);//do b
         //System.out.println("King has branched second time on 'ab', row: " + row + " column: " + column + " my score is: " + score);
@@ -499,7 +504,7 @@ public class CheckerKing extends Checker{
         }
         else if(checkTakeLeft(board) && checkTakeBackLeft(board)){//ac
             
-           int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
+           int tempScore = score; int tempRow = row; int tempCol = column; char[][]tempBoard = BoardUtilities.buildBoard(board); ArrayList<MoveCoordinates> tempMoves = moveSeperator(allMoves);
               //System.out.println("King has branched on 'ac");
             //board = BoardUtilities.buildBoard(board);
             takeLeftLogic(board);//do a
@@ -507,7 +512,7 @@ public class CheckerKing extends Checker{
             doKingMoves(board);
             
 
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
         //System.out.println("King has branched second time on 'ac', row: " + row + " column: " + column + " my score is: " + score);
@@ -517,7 +522,7 @@ public class CheckerKing extends Checker{
         }
         else if(checkTakeLeft(board) && checkTakeBackRight(board)){//ad
             
-           int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
+           int tempScore = score; int tempRow = row; int tempCol = column; char[][]tempBoard = BoardUtilities.buildBoard(board); ArrayList<MoveCoordinates> tempMoves = moveSeperator(allMoves);
               //System.out.println("King has branched on 'ad");
             //board = BoardUtilities.buildBoard(board);
                  // char tempSymbol = mySymbol;
@@ -525,7 +530,7 @@ public class CheckerKing extends Checker{
         //System.out.println("King has branched first time on 'ad', row: " + row + " column: " + column + " my score is: " + score);
             doKingMoves(board);
 
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
         //System.out.println("King has branched second time on 'ad', row: " + row + " column: " + column + " my score is: " + score);
@@ -534,7 +539,7 @@ public class CheckerKing extends Checker{
         }
         else if(checkTakeRight(board) && checkTakeBackLeft(board)){//bc
             
-           int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
+           int tempScore = score; int tempRow = row; int tempCol = column; char[][]tempBoard = BoardUtilities.buildBoard(board); ArrayList<MoveCoordinates> tempMoves = moveSeperator(allMoves);
   //System.out.println("King has branched on 'bc'");
             
             //board = BoardUtilities.buildBoard(board);
@@ -543,7 +548,7 @@ public class CheckerKing extends Checker{
             doKingMoves(board);
            
             
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
             takeBackLeftLogic(board);//do c
         //System.out.println("King has branched second time on 'bc', row: " + row + " column: " + column + " my score is: " + score);
@@ -553,14 +558,14 @@ public class CheckerKing extends Checker{
         }
         else if(checkTakeRight(board) && checkTakeBackRight(board)){//bd
             
-           int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
+           int tempScore = score; int tempRow = row; int tempCol = column; char[][]tempBoard = BoardUtilities.buildBoard(board); ArrayList<MoveCoordinates> tempMoves = moveSeperator(allMoves);
             //board = BoardUtilities.buildBoard(board);
               //System.out.println("King has branched on 'bd'");
 
             takeRightLogic(board);//do b
        //System.out.println("King has branched first time on 'bd', row: " + row + " column: " + column + " my score is: " + score);
           
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
             takeBackRightLogic(board);// do d
         //System.out.println("King has branched second time on 'bd', row: " + row + " column: " + column + " my score is: " + score);
@@ -570,7 +575,7 @@ public class CheckerKing extends Checker{
         }
         else if(checkTakeBackLeft(board) && checkTakeBackRight(board)){//cd
             
-           int tempScore = score;            int tempRow = row;            int tempCol = column;       char[][]tempBoard = BoardUtilities.buildBoard(board);
+           int tempScore = score; int tempRow = row; int tempCol = column; char[][]tempBoard = BoardUtilities.buildBoard(board); ArrayList<MoveCoordinates> tempMoves = moveSeperator(allMoves);
               //System.out.println("King has branched on 'cd'");
 
             //board = BoardUtilities.buildBoard(board);
@@ -582,7 +587,7 @@ public class CheckerKing extends Checker{
             doKingMoves(board);
            // //System.out.println("After branch at cd:");
             //BoardUtilities.printBoard(board);
-           score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;
+                      score = tempScore;           row = tempRow;           column = tempCol;     board = tempBoard;           allMoves = tempMoves;
             //board = BoardUtilities.buildBoard(board);
              ////System.out.println("Before branch at cd: ");
             //BoardUtilities.printBoard(board);

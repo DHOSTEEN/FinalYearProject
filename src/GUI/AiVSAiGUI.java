@@ -305,7 +305,7 @@ public class AiVSAiGUI extends javax.swing.JFrame {
         
             
         ArrayList<MoveCoordinates> allMoves = moves.getAllMoves();
-       
+       System.out.println("RED Move:");
         updateBoard(allMoves);
         
         
@@ -316,6 +316,7 @@ public class AiVSAiGUI extends javax.swing.JFrame {
         board = moves.getBoard();
         allMoves = moves.getAllMoves();
         
+            System.out.println("Black Move:");
          updateBoard(allMoves);
         control--;
         System.out.println("Control is:" + control);
