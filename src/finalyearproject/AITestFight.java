@@ -77,6 +77,7 @@ public class AITestFight {
         }
         for(int i =0; i<allMoves.size(); i++){
         
+            
             System.out.println(allMoves.get(i).getRow() + " - " + allMoves.get(i).getCol());
         
         }

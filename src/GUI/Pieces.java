@@ -29,7 +29,7 @@ public class Pieces {
         System.out.println("Added in row: " +piece.getRow());
          System.out.println("Added in col: " +piece.getCol());
          Integer wibble = piece.getRow() + piece.getCol();
-         System.out.println("wible is " + wibble);
+         System.out.println("wible is " + piece.getRow() + "-" + piece.getCol());
         String key = piece.getRow() + "-" + piece.getCol();
         lookUp.put(key, piece);
         boardLookUp.put(piece.getButton(),piece);
@@ -63,10 +63,16 @@ public class Pieces {
         return lookUp.get(key).isColour() == colour;
     
     }
+    public boolean getColour(int row, int col){
+         String key = row+ "-"+ col;
+        return lookUp.get(key).isColour();
+    
+    }
     public boolean type(int row, int col){
     
            String key = row+ "-"+ col;
-        return lookUp.get(key).isKing();
+           System.out.println(row+ "-"+ col);
+        return (lookUp.get(key)).isKing();
     }
     public void remove(JButton button){
     

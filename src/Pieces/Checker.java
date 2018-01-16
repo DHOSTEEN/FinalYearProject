@@ -165,6 +165,7 @@ public class Checker {
         isMultiMove = false;
 
         doMoveLeft(board);
+        allMoves = new ArrayList<>();
     
     
     }
@@ -244,6 +245,7 @@ public class Checker {
         isMultiMove = false;
     
         doMoveRight(board);
+        allMoves = new ArrayList<>();
     
     }
     
@@ -411,6 +413,7 @@ public class Checker {
         else if(checkTakeLeft(board)){
 
              takeLeftLogic(board);
+             
              
         }
         else if(checkTakeRight(board)){

@@ -177,7 +177,7 @@ public class CheckerKing extends Checker{
     }
      public void takeBackLeftLogic(char[][] board){// literally only thing that changes is the up or down.......
          
-         if(!isMultiMove){allMoves = new ArrayList<>();}
+        // if(!isMultiMove){allMoves = new ArrayList<>();}
          fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
          allMoves.add(fromMove);
          
@@ -199,7 +199,7 @@ public class CheckerKing extends Checker{
     }
      public void doMoveBackLeftLogic(char[][] board){
          
-         if(!isMultiMove){allMoves = new ArrayList<>();}
+        // if(!isMultiMove){allMoves = new ArrayList<>();}
          fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
          allMoves.add(fromMove);
         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column);
@@ -278,7 +278,7 @@ public class CheckerKing extends Checker{
     }
      public void takeBackRightLogic(char[][] board){
          
-         if(!isMultiMove){allMoves = new ArrayList<>();}
+        // if(!isMultiMove){allMoves = new ArrayList<>();}
          fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
          allMoves.add(fromMove);
          
@@ -299,7 +299,7 @@ public class CheckerKing extends Checker{
     }
      private void doMoveBackRightLogic(char[][] board){
          
-         if(!isMultiMove){allMoves = new ArrayList<>();}
+        // if(!isMultiMove){allMoves = new ArrayList<>();}
          fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
          allMoves.add(fromMove);
         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column);;

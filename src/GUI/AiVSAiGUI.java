@@ -346,20 +346,60 @@ public class AiVSAiGUI extends javax.swing.JFrame {
        ///redo!
        //will get
    
+       for(int i =0; i< allMoves.size(); i++){
+           
+              System.out.println(allMoves.get(i).getRow() + " - " + allMoves.get(i).getCol());
+       
+       }
+       //ISSUE - mult moves concatonated. why? mult takes are fine...
         int newMovePos = 0;
         String moveTally = "";
         
         boolean colour = true;
         boolean type = true;
         
+        boolean firstMove = true;
+        
         for(int i =0; i<allMoves.size(); i++){
             int counter = 0;
             int row = allMoves.get(i).getRow();
             int col = allMoves.get(i).getCol();
-           
             
-        
-            if(row == -1){
+            if(firstMove){
+            
+                System.out.println("The row to save is: " + row);
+                System.out.println("The col to save is: " + col);
+                type = allPieces.type(row, col);
+                colour =  allPieces.getColour(row, col);
+                
+                
+                removePiece(buttons[row][col], row, col);
+                System.out.println("Removed: " + row + "-" + col);
+                firstMove = false;
+            
+            }
+           
+            else if(allMoves.get(i).isKill()){
+                 System.out.println("Removed: " + row + "-" + col);
+                removePiece(buttons[row][col], row, col);
+            }
+            else if(allMoves.get(i).getRow() == -1){
+            
+                 allMoves = new ArrayList(allMoves.subList(i+1,allMoves.size()));
+               // break;
+            }
+           
+            else if(!firstMove){
+            
+            
+                try {
+                    addPiece(buttons[row][col], colour, type, row, col);
+                } catch (IOException ex) {
+                    Logger.getLogger(AiVSAiGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+         /* if(row == -1){// is end of move
             
                 allMoves = new ArrayList(allMoves.subList(i+1,allMoves.size()));
                 break;
@@ -376,7 +416,7 @@ public class AiVSAiGUI extends javax.swing.JFrame {
                  moveTally += row + " - " + col + "/n";
         
             }
-            if(i== 0){
+            if(i == 0){
                 System.out.println("row-col: " + row +"-"+col);
                 //colour = allPieces.getPiece(row, col).isColour();
                // type = allPieces.getPiece(row, col).isKing();
@@ -395,7 +435,7 @@ public class AiVSAiGUI extends javax.swing.JFrame {
                     System.out.println("is fali???");
                     Logger.getLogger(AiVSAiGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-           }
+           }*/
             
             
           repaint();
