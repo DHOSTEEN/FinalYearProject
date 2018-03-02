@@ -8,6 +8,7 @@
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/GUI/Testy.java</file>
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/TestClasses/TestMain.java</file>
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/AlphaBetaTreeV2/AlphaBetaTree.java</file>
+            <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/AlphaBetaTree/AlphaBetaTreeNode.java</file>
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/TestClasses/testTreeAlphaBeta.java</file>
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/GUI/Pieces.java</file>
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/GUI/Test.java</file>
@@ -23,6 +24,7 @@
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/finalyearproject/aTester.java</file>
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/TestClasses/testTreeAlphaBetav2.java</file>
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/TestClasses/CheckerLogicTest.java</file>
+            <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/GUI/AIvsAI.java</file>
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/Pieces/CheckerKing.java</file>
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/Pieces/Checker.java</file>
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/Pieces/CheckerPosition.java</file>
@@ -32,6 +34,7 @@
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/AlphaBetaTree/AlphaBetaNode.java</file>
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/Board/BoardUtilities.java</file>
             <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/finalyearproject/tester.java</file>
+            <file>file:/E:/FinalYearProject/FinalYearProjectGIT/src/TestClasses/testTreeAlpha.java</file>
         </group>
     </open-files>
 </project-private>

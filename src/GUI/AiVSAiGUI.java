@@ -294,7 +294,7 @@ public class AiVSAiGUI extends javax.swing.JFrame {
     
         GUILogic logic = new GUILogic(buttons, allPieces);
         char[][] board = logic.readGUIBoard(buttons, allPieces);
-        int control = 30;
+        int control = 60;
         while(control > 1){
         AlphaBetaTree redAI = new AlphaBetaTree(null, true, 0, -1000, 1000, 0, board, depthLevel, null);
         
@@ -395,6 +395,7 @@ public class AiVSAiGUI extends javax.swing.JFrame {
             
                 try {
                     addPiece(buttons[row][col], colour, type, row, col);
+                    checkKing(row, type, buttons[row][col]);
                 } catch (IOException ex) {
                     Logger.getLogger(AiVSAiGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
