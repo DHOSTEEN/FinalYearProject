@@ -57,6 +57,7 @@ public class AlphaBetaTree {
     private int alpha;
     private int beta;
     private boolean allChildrenExplored;
+    private AllMoves generatedMoves;
     
     public AlphaBetaTree(AlphaBetaTree parent, boolean myType, int newDepthLevel,int passedAlpha, int passedBeta, int culmativeScore, char[][] passedBoard){
     
