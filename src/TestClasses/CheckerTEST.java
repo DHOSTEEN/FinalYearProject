@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Pieces;
+package TestClasses;
 
 
 import AlphaBetaTreeV2.AlphaBetaTree;
@@ -11,13 +11,12 @@ import Board.BoardUtilities;
 import Pieces.IllegalMoveException;
 import finalyearproject.FinalYearProject;
 import finalyearproject.tester;
-import java.util.ArrayList;
 
 /**
  *
  * @author Daniel
  */
-public class Checker {
+public class CheckerTEST {
     
     protected final int startRow;
     protected final int startColumn;
@@ -44,35 +43,16 @@ public class Checker {
    protected final char redKingChecker = 'E';
    protected final char blackChecker = 'X';
    protected final char blackKingChecker = 'K';
-   
+  
    private final int takeValue = 10;
    private final int extraValue = 1;
    
-   private Checker check;
-   private int tempScore;
-   private int tempRow;
-   private int tempCol;
-   
-   protected boolean isMultiMove;
+   protected boolean isFirstMove;
    
    protected AlphaBetaTree myNode;
    
-   protected MoveCoordinates fromMove;
-   protected MoveCoordinates toMove;
-   protected MoveCoordinates takenMove;
-   protected ArrayList<MoveCoordinates> allMoves = new ArrayList<>();
-   protected final boolean isTaken= true;
-
-   
-   public Checker(int row, int column, boolean isRed){//for GUI playerLogic
-   
-        
-        startRow = row;
-        startColumn = column;
-        setVariables(isRed, false, false);
-   }
     
-    public Checker(int row, int column, boolean isRed, AlphaBetaTree myNode){
+    public CheckerTEST(int row, int column, boolean isRed, AlphaBetaTree myNode){
         
         startRow = row;
         startColumn = column;
@@ -81,7 +61,7 @@ public class Checker {
     
     }
     
-    public Checker(int row, int column, boolean isRed, boolean isKing, boolean isBackwardsKing, AlphaBetaTree myNode){
+    public CheckerTEST(int row, int column, boolean isRed, boolean isKing, boolean isBackwardsKing, AlphaBetaTree myNode){
 
         startRow = row;
         startColumn = column;
@@ -162,10 +142,8 @@ public class Checker {
         score = 0;
         row = startRow;
         column = startColumn;
-        isMultiMove = false;
 
         doMoveLeft(board);
-        allMoves = new ArrayList<>();
     
     
     }
@@ -174,11 +152,19 @@ public class Checker {
     public void doMoveLeft(char[][] board) throws IllegalMoveException{
         
         board = BoardUtilities.buildBoard(board);
-        moveLeftTest(board);// Triggering exceptions
+        moveLeftTest(board);
         
         if(checkTakeLeft(board)){//testing for take in one single turn
+
+            System.out.println("I can take left");
+            System.out.println("My row is: " + row + " my coloumn is: " + column);
+            takeLeftLogic(board);
+            System.out.println("My row is: " + row + " my coloumn is: " + column);
+            System.out.println("Checker has branched, row: " + row + " column: " + column + " my score is: " + score);
             
+           
             doMoves(board);
+            
 
         }
         
@@ -186,14 +172,33 @@ public class Checker {
         
             doMoveLeftLogic(board);
             kingMe(board);
-           
-           
+            System.out.println("Checker has branched, row: " + row + " column: " + column + " my score is: " + score);
         }
+        //if(this.row == && this.column == 0){
+        //}
+        //kingMe(board);
+        
+        //return new BoardScorePair(score, board);
        
+       
+        ////BoardUtilities.printBoard(board);
+       //myNode.branch(score, board);
+       // new AlphaBetaTree(myNode, !(myNode.isIsMaxNode()), myNode.getDepthLevel() + 1, myNode.getAlpha(), myNode.getBeta(), myNode.getCurrentScore() + score, board).getBestMove();
+        //(AlphaBetaTree parent, boolean myType, int newDepthLevel,int passedAlpha, int passedBeta, int culmativeScore, char[][] passedBoard
+       // AlphaBetaNode newNode = new AlphaBetaNode(myNode, board, score, myNode.depthLevel+1, !(myNode.isMaxNode));
+         //return newNode.getBestMove(); // create a Node with a parent attached. will carry Culmative score until seesation point. then fire up the tree
+                    //myNode.deepness <--- how far down the algorithm u are
+        //this.column =this.column -1;
+        //update Table info and/or GUI
+    
     }
     
     public void moveLeftTest(char[][] board) throws IllegalMoveException{
-
+        
+        //test to see if move is applicable -- (redundant?)
+        
+       
+       // System.out.println(myOtherSymbol + "i r lefty");
         if(this.column-1<0){
         
             throw new IllegalMoveException(myColour + " left move  column out of bounds");
@@ -221,19 +226,13 @@ public class Checker {
     }
     public void doMoveLeftLogic(char[][] board){
         
-       // if(!isMultiMove){allMoves = new ArrayList<>();}
-        fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
-        allMoves.add(fromMove);
-        
         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column);
         this.row = this.row + upOrDown;
         this.column = this.column -1;
         board[this.row][this.column] = mySymbol;
-        
-        toMove = new MoveCoordinates(this.row, this.column, !isTaken);
-        allMoves.add(toMove);
-        branch(board);
-
+        //System.out.println("I have branched, my score is: " + score);
+        CheckerLogicTest.counter++;
+    
     }
     /*Resets Checker for next move on it*/
     public void moveRight(char[][] board) throws IllegalMoveException{
@@ -242,10 +241,8 @@ public class Checker {
         score = 0;
         row = startRow;
         column = startColumn;
-        isMultiMove = false;
     
         doMoveRight(board);
-        allMoves = new ArrayList<>();
     
     }
     
@@ -253,23 +250,40 @@ public class Checker {
     
         board = BoardUtilities.buildBoard(board);
         moveRightTest(board);
-
+       // System.out.println(blackChecker);
        
         if(checkTakeRight(board)){//testing for take in one single turn
 
           
            takeRightLogic(board);
- 
-           doMoves(board);
+           System.out.println("Checker has branched, row: " + row + " column: " + column + " my score is: " + score);
+            
+            doMoves(board);
            
         }
         else{
             
             doMoveRightLogic(board);
             kingMe(board);
-
+           System.out.println("Checker has branched, row: " + row + " column: " + column + " my score is: " + score);
+            
+            
+        
         }
 
+        // AlphaBetaNode newNode = new AlphaBetaNode(myNode, board, score, myNode.depthLevel+1, !(myNode.isMaxNode));
+         // makes a king if appropriate
+         
+         // probably just need to brach here. is awkward buttttttttttttttttttttt how else?
+         
+        
+          //BoardUtilities.printBoard(board);
+        // myNode.branch(score, board);
+        //new AlphaBetaTree(myNode, !(myNode.isIsMaxNode()), myNode.getDepthLevel() + 1, myNode.getAlpha(), myNode.getBeta(), myNode.getCurrentScore() + score, board).getBestMove();
+
+        // return new BoardScorePair(score, board);
+       
+         //return newNode.getBestMove(); 
     }
     public void moveRightTest(char[][] board) throws IllegalMoveException{
     
@@ -293,20 +307,11 @@ public class Checker {
         }
     }
     public void doMoveRightLogic(char[][] board){
-       // if(!isMultiMove){allMoves = new ArrayList<>();}
-        fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
-        allMoves.add(fromMove);
-        
         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column);;
         this.row = this.row + upOrDown;
         this.column = this.column +1;
         board[this.row][this.column] = mySymbol;
-        
-        toMove = new MoveCoordinates(this.row, this.column, !isTaken);
-        allMoves.add(toMove);
-        
-       branch(board);
-
+        CheckerLogicTest.counter++;
     
     }
     ///// helper methods ////
@@ -336,13 +341,6 @@ public class Checker {
     }
     public void takeLeftLogic(char[][] board){
         
-       // if(!isMultiMove){allMoves = new ArrayList<>();}
-        fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
-        allMoves.add(fromMove);
-        
-        takenMove =new MoveCoordinates(this.row + upOrDown, this.column-1, isTaken);
-        allMoves.add(takenMove);
-        
         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column); // boardSymbol(int i, int j)
         board[this.row + upOrDown][this.column-1] = FinalYearProject.boardSymbol(this.row + upOrDown, this.column -1);
         board[this.row + (upOrDown*2)][this.column-2] = mySymbol;
@@ -350,21 +348,11 @@ public class Checker {
         this.column = this.column-2;
 
         score += point;
-        
-        toMove = new MoveCoordinates(this.row, this.column, !isTaken);
-        allMoves.add(toMove);
+        CheckerLogicTest.counter++;
         kingMe(board);
-        branch(board);
     
     }
     public void takeRightLogic(char[][] board){
-        
-       // if(!isMultiMove){allMoves = new ArrayList<>();}
-        fromMove = new MoveCoordinates(this.row, this.column, !isTaken);
-        allMoves.add(fromMove);
-        
-        takenMove = new MoveCoordinates(this.row + upOrDown, this.column+1, isTaken);
-        allMoves.add(takenMove);
         
         board[this.row][this.column] = FinalYearProject.boardSymbol(this.row, this.column);
         board[this.row+ upOrDown][this.column +1] = FinalYearProject.boardSymbol(this.row + upOrDown, this.column+1);
@@ -373,12 +361,8 @@ public class Checker {
         this.column = this.column+2;
 
         score += point; 
-        
-        toMove = new MoveCoordinates(this.row, this.column, !isTaken);
-        allMoves.add(toMove);
-
+        CheckerLogicTest.counter++;
         kingMe(board);
-       branch(board);
     
     }
     public void doMoves(char[][] board){
@@ -387,64 +371,82 @@ public class Checker {
        
         if(checkTakeLeft(board) && checkTakeRight(board)){
 
+                 //System.out.println("I can take both - I has branched: " +score);
+                 //need to branch here as well?
+                 //System.out.println("I have branched,  my score is: " + score);
+                  //BoardUtilities.printBoard(board);
                 int tempscore = score;
                 int tempRow = row;
                 int tempCol = column;
                 char tempSymbol = mySymbol;
-                ArrayList<MoveCoordinates> tempMoves = moveSeperator(allMoves);
-                
                 char[][]tempboard = BoardUtilities.buildBoard(board);
                   
                 takeLeftLogic(board);
-
-               
+                System.out.println("Checker has at double choice branched, row: " + row + " column: " + column + " my score is: " + score);
                 doMoves(board);
                 score = tempscore;
                 row = tempRow;
                 column = tempCol;
                 mySymbol = tempSymbol;
                 board = tempboard;
-                
-                allMoves = tempMoves;
-                takeRightLogic(board);
-
+                  
+                  takeRightLogic(board);
+                  System.out.println("Checker has at double choice branched, row: " + row + " column: " + column + " my score is: " + score);
+                  //doMoves(board);
+                // System.out.println("I have branched, my score is: " + score);
      
         }
         else if(checkTakeLeft(board)){
 
+           
+            
+            //myNode.branch(score, board);
+             //BoardUtilities.printBoard(board);
              takeLeftLogic(board);
-             
-             
+              System.out.println("Checker has branched, row: " + row + " column: " + column + " my score is: " + score);
+            //System.out.println("EXPLAIN is BLACK to me how the score of" + score + " is returned");
+     
+             //BoardUtilities.printBoard(board);
+           // System.out.println("EXPLAIN is BLACK to me how the score of " + score + " is returned");
         }
         else if(checkTakeRight(board)){
 
+            
+            
+             //BoardUtilities.printBoard(board);
+            //myNode.branch(score, board);
+            
              takeRightLogic(board);
- 
+              System.out.println("Checker has branched, row: " + row + " column: " + column + " my score is: " + score);
+            //BoardUtilities.printBoard(board);
+            //System.out.println("EXPLAIN is BLACK to me how the score of " + score + " is returned");
+
         }
-
+        
+        System.out.println("right move is: "+ checkTakeLeft(board) + " right is " + checkTakeRight(board));
         if(checkTakeLeft(board) || checkTakeRight(board)){// if can keep going
-
-            isMultiMove = true;
+        
+            System.out.println("Can still move");
             doMoves(board);
         }
 
 
     }
     
-    public void branch(char[][] board){
-        int extra =0;
-         if(column == 0 || column == 7){
+    //a Branch score //
+    public void branch(){
+    
+        if(column == 0 || column == 7){
         
-            extra = extraPoint*4;
+            score+= extraPoint*4;
         }
-        else if(row == 0 || row == 7){
+        else if(row == 0 || column == 7){
         
-            extra = extraPoint*4;
+            score += extraPoint*4;
         }
-        allMoves.add(new MoveCoordinates(-1, score + extra, false));
-        myNode.branch((score + extra), board, allMoves);
     
     }
+    
     /*Booleans*/
     public boolean isBlockedByOtherLeft(char[][] board){
     
@@ -480,20 +482,8 @@ public class Checker {
     
     }
     
-    //King logic
+    //
    
-    protected ArrayList<MoveCoordinates> moveSeperator(ArrayList<MoveCoordinates> allMoves){
-    
-        ArrayList<MoveCoordinates> copyOfAllMoves = new ArrayList<>();
-        
-            for(int i =0; i<allMoves.size(); i++){
-
-                copyOfAllMoves.add(allMoves.get(i));
-
-            }
-        
-        return copyOfAllMoves;
-    } 
    
     
    

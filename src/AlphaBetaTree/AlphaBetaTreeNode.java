@@ -7,7 +7,7 @@ package AlphaBetaTree;
 
 import Board.BoardUtilities;
 import Pieces.BlackChecker;
-import Pieces.BoardScorePair;
+//import Pieces.BoardScorePair;
 import Pieces.Checker;
 import Pieces.CheckerMoveAlphaBetaTree;
 import Pieces.IllegalMoveException;
